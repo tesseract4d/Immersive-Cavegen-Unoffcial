@@ -1,0 +1,14 @@
+//version: 1707058017
+
+plugins {
+    id 'com.gtnewhorizons.gtnhconvention'
+}
+
+
+jar {
+    manifest {
+        attributes 'FMLAT': 'immersivecavegen_at.cfg'
+        attributes 'FMLCorePlugin': 'net.tclproject.mysteriumlib.asm.fixes.MysteriumPatchesFixLoaderB'
+        attributes 'FMLCorePluginContainsFMLMod': 'true'
+    }
+}
