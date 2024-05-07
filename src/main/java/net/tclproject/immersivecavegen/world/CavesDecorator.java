@@ -18,7 +18,7 @@ import net.minecraftforge.event.terraingen.DecorateBiomeEvent;
 import net.tclproject.immersivecavegen.WGConfig;
 import net.tclproject.immersivecavegen.blocks.BlockInit;
 import net.tclproject.immersivecavegen.world.biomes.caves.*;
-import net.tclproject.mysteriumlib.asm.fixes.MysteriumPatchesFixesCave;
+import net.tclproject.immersivecavegen.fixes.MysteriumPatchesFixesCave;
 
 import java.util.Arrays;
 import java.util.IdentityHashMap;

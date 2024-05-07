@@ -65,11 +65,11 @@ public class SpawnEggGlowSlime extends Item {
   public static Entity spawnCreature(World p_77840_0_, int p_77840_1_, double p_77840_2_, double p_77840_4_, double p_77840_6_) {
     EntityGlowSlime entity = new EntityGlowSlime(p_77840_0_);
     entity.setLocationAndAngles(p_77840_2_, p_77840_4_, p_77840_6_, MathHelper.wrapAngleTo180_float(p_77840_0_.rand.nextFloat() * 360.0F), 0.0F);
-    ((EntityLivingBase)entity).rotationYawHead = ((Entity)entity).rotationYaw;
-    ((EntityLivingBase)entity).renderYawOffset = ((Entity)entity).rotationYaw;
-    entity.onSpawnWithEgg((IEntityLivingData)null);
-    p_77840_0_.spawnEntityInWorld((Entity)entity);
+    entity.rotationYawHead = entity.rotationYaw;
+    entity.renderYawOffset = entity.rotationYaw;
+    entity.onSpawnWithEgg(null);
+    p_77840_0_.spawnEntityInWorld(entity);
     entity.playLivingSound();
-    return (Entity)entity;
+    return entity;
   }
 }

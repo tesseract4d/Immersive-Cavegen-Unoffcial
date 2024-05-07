@@ -38,10 +38,10 @@ public class BlockInit {
   public static Block mushroomBlockGreen;
 
   public static void init() {
-    glowLily = GameRegistry.registerBlock((Block)new BlockGlowlily(), "GlowLily").setBlockTextureName("immersivecavegen:glowlily");
-    glowLilyBlue = GameRegistry.registerBlock((Block)new BlockGlowlily(), "GlowLilyBlue").setBlockTextureName("immersivecavegen:glowlily2");
-    ceilingVine = GameRegistry.registerBlock((Block)new BlockCeilingVine(), "CeilingVine").setBlockName("ceilingVine").setHardness(0.2F).setStepSound(Block.soundTypeGrass).setBlockTextureName("immersivecavegen:greenvine");
-    scorchedStone = GameRegistry.registerBlock((Block)new BlockStone(), "ScorchedStone").setBlockName("scorchedStoneBlock").setCreativeTab(GamemodeTab.tabCaves).setHardness(1.5F).setResistance(10.0F).setStepSound(Block.soundTypePiston).setBlockTextureName("immersivecavegen:scorched_stone");
+    glowLily = GameRegistry.registerBlock(new BlockGlowlily(), "GlowLily").setBlockTextureName("immersivecavegen:glowlily");
+    glowLilyBlue = GameRegistry.registerBlock(new BlockGlowlily(), "GlowLilyBlue").setBlockTextureName("immersivecavegen:glowlily2");
+    ceilingVine = GameRegistry.registerBlock(new BlockCeilingVine(), "CeilingVine").setBlockName("ceilingVine").setHardness(0.2F).setStepSound(Block.soundTypeGrass).setBlockTextureName("immersivecavegen:greenvine");
+    scorchedStone = GameRegistry.registerBlock(new BlockStone(), "ScorchedStone").setBlockName("scorchedStoneBlock").setCreativeTab(GamemodeTab.tabCaves).setHardness(1.5F).setResistance(10.0F).setStepSound(Block.soundTypePiston).setBlockTextureName("immersivecavegen:scorched_stone");
     scorchedLavaStone = GameRegistry.registerBlock(new ScorchedLavaStone(), "ScorchedLavaStone");
     stoneStalactiteBlock = GameRegistry.registerBlock(new BlockStoneStalactite(), ItemStalactite.class, "StoneStalactite");
     netherStalactiteBlock = GameRegistry.registerBlock(new BlockNetherStalactite(), ItemStalactite.class, "NetherStalactite");
@@ -49,7 +49,7 @@ public class BlockInit {
     sandStalactiteBlock = GameRegistry.registerBlock((new BlockBaseStalactite(Item.getItemFromBlock(Blocks.sandstone))).setBlockName("sandStalactiteBlock").setBlockTextureName(":sandDecoration"), ItemStalactite.class, "SandstoneSalactite");
     iceStalactiteBlock = GameRegistry.registerBlock(new BlockIceStalactite(), MultiItemBlock.class, "iceStalactite");
     cavePlantBlock = GameRegistry.registerBlock((new BlockCavePlant()).setLightLevel(6.0F), MultiItemBlock.class, "cavePlant");
-    mushroomBlockBlue = GameRegistry.registerBlock((Block)new BlockHugeGlowingMushroom(Material.wood, 0), "glowMushroomBlue").setCreativeTab(GamemodeTab.tabCaves);
-    mushroomBlockGreen = GameRegistry.registerBlock((Block)new BlockHugeGlowingMushroom2(Material.wood, 1), "glowMushroomGreen").setCreativeTab(GamemodeTab.tabCaves);
+    mushroomBlockBlue = GameRegistry.registerBlock(new BlockHugeGlowingMushroom(Material.wood, 0), "glowMushroomBlue").setCreativeTab(GamemodeTab.tabCaves);
+    mushroomBlockGreen = GameRegistry.registerBlock(new BlockHugeGlowingMushroom2(Material.wood, 1), "glowMushroomGreen").setCreativeTab(GamemodeTab.tabCaves);
   }
 }

@@ -1,4 +1,4 @@
-package net.tclproject.mysteriumlib.asm.fixes;
+package net.tclproject.immersivecavegen.fixes;
 
 import cpw.mods.fml.common.eventhandler.Event;
 import java.util.Random;
@@ -33,33 +33,33 @@ import net.tclproject.mysteriumlib.asm.annotations.Fix;
 
 public class MysteriumPatchesFixesOld {
   protected static Random noiseGen = new Random();
-  
+
   protected static Random b = new Random();
-  
+
   protected static float[] ravineData = new float[128];
-  
+
   protected static World world;
-  
+
   protected static long seedX;
-  
+
   protected static long seedZ;
-  
+
   protected static long worldSeed;
-  
+
   protected static long chunkSeed;
-  
+
   protected static int colossalCaveChance = 26 - WGConfig.giantCaveChance / 4;
-  
+
   protected static boolean genCaves = false;
-  
+
   protected static boolean genFillerCaves = false;
-  
+
   @Fix(returnSetting = EnumReturnSetting.ON_TRUE)
   public static boolean func_151539_a(MapGenBase instance, IChunkProvider p_151539_1_, World par2World, int chunkX, int chunkZ, Block[] par5ArrayOfBlock) {
     for (String str : WGConfig.dimblacklist) {
       if (world != null && String.valueOf(world.provider.dimensionId).equalsIgnoreCase(str))
-        return false; 
-    } 
+        return false;
+    }
     if (instance instanceof net.minecraft.world.gen.MapGenCaves) {
       world = par2World;
       worldSeed = world.getSeed();
@@ -76,36 +76,36 @@ public class MysteriumPatchesFixesOld {
           for (hj = 1; hj < WGConfig.cavesSpawnMultiplier; ) {
             generateCaves(varChunkX, varChunkZ, chunkX, chunkZ, par5ArrayOfBlock);
             hj++;
-          } 
+          }
           if (genRavines) {
             generateRavines(varChunkX, varChunkZ, chunkX, chunkZ, par5ArrayOfBlock);
             for (hj = 1; hj < WGConfig.cavernsSpawnMultiplier; ) {
               generateRavines(varChunkX, varChunkZ, chunkX, chunkZ, par5ArrayOfBlock);
               hj++;
-            } 
-          } 
+            }
+          }
           generateColossalCaves(varChunkX, varChunkZ, chunkX, chunkZ, par5ArrayOfBlock);
           for (hj = 1; hj < WGConfig.oldBigCavesSpawnMultiplier; ) {
             generateColossalCaves(varChunkX, varChunkZ, chunkX, chunkZ, par5ArrayOfBlock);
             hj++;
-          } 
-        } 
-      } 
+          }
+        }
+      }
       return true;
-    } 
+    }
     return false;
   }
-  
+
   protected static void generateLargeCaveNode(long par1, int par3, int par4, Block[] par5ArrayOfBlock, double par6, double par8, double par10) {
     generateCaveNode(par1, par3, par4, par5ArrayOfBlock, par6, par8, par10, 1.0F + b.nextFloat() * 6.0F, 0.0F, 0.0F, -1, -1, 0.5D, 0);
   }
-  
+
   protected static void generateCaveNode(long par1, int par3, int par4, Block[] par5ArrayOfBlock, double par6, double par8, double par10, float par12, float par13, float par14, int par15, int par16, double par17, int bigCave) {
     if (bigCave == 0) {
       Random r = new Random();
       if (r.nextInt(100) < WGConfig.giantCaveChance)
-        bigCave = 3; 
-    } 
+        bigCave = 3;
+    }
     double var19 = (par3 * 16 + 8);
     double var21 = (par4 * 16 + 8);
     float var23 = 0.0F;
@@ -114,41 +114,41 @@ public class MysteriumPatchesFixesOld {
     float curviness1 = 0.1F;
     float curviness2 = 0.1F;
     if (par16 <= 0)
-      par16 = 112 - var25.nextInt(28); 
+      par16 = 112 - var25.nextInt(28);
     int var27 = var25.nextInt(par16 / 2) + par16 / 4;
     double minWidth = 1.5D;
     if (bigCave != 1 && bigCave != 2) {
       if (bigCave == 3) {
         par17 = (1.0F - par12 / 100.0F);
         minWidth = 2.0D;
-      } 
+      }
     } else {
       if (bigCave == 1) {
         par16 = 112 + var25.nextInt(var25.nextInt(337) + 1);
         if (par16 > 336)
-          par16 = 336; 
+          par16 = 336;
         if (var25.nextBoolean()) {
           float multiplier = var25.nextFloat() * par16 / 96.0F + (672 - par16) / 672.0F;
           if (multiplier > 1.0F)
-            par12 *= multiplier; 
+            par12 *= multiplier;
         } else {
           par12 *= var25.nextFloat() + 1.0F;
-        } 
+        }
       } else {
         par16 = 224 + var25.nextInt(113);
-      } 
+      }
       var27 = var25.nextInt(par16 / 4) + par16 / 2;
       curviness1 = par16 / 3360.0F + 0.05F;
       if (curviness1 < 0.1F)
-        curviness2 = curviness1; 
+        curviness2 = curviness1;
       par17 = (1.0F - par12 / 100.0F);
       minWidth = 2.5D;
-    } 
+    }
     boolean var54 = false;
     if (par15 == -1) {
       par15 = par16 / 2;
       var54 = true;
-    } 
+    }
     int skipCount = 999;
     for (boolean var28 = (var25.nextInt(6) == 0); par15 < par16; par15++) {
       double var29 = minWidth + (MathHelper.sin(par15 * 3.141593F / par16) * par12);
@@ -162,7 +162,7 @@ public class MysteriumPatchesFixesOld {
         par14 *= 0.92F;
       } else {
         par14 *= 0.7F;
-      } 
+      }
       par14 += var24 * curviness2;
       par13 += var23 * curviness1;
       var24 *= 0.9F;
@@ -174,11 +174,11 @@ public class MysteriumPatchesFixesOld {
           generateCaveNode(var25.nextLong(), par3, par4, par5ArrayOfBlock, par6, par8, par10, var25.nextFloat() * 0.5F + 0.5F, par13 - 1.5707964F, par14 / 3.0F, par15, par16, 1.0D, 0);
           generateCaveNode(var25.nextLong(), par3, par4, par5ArrayOfBlock, par6, par8, par10, var25.nextFloat() * 0.5F + 0.5F, par13 + 1.5707964F, par14 / 3.0F, par15, par16, 1.0D, 0);
           return;
-        } 
+        }
         generateCaveNode(var25.nextLong(), par3, par4, par5ArrayOfBlock, par6, par8, par10, var25.nextFloat() * par12 / 3.0F + par12 / 3.0F, par13 - 1.5707964F, par14 / 3.0F, par15, par16, 1.0D, 3);
         generateCaveNode(var25.nextLong(), par3, par4, par5ArrayOfBlock, par6, par8, par10, var25.nextFloat() * par12 / 3.0F + par12 / 3.0F, par13 + 1.5707964F, par14 / 3.0F, par15, par16, 1.0D, 3);
         return;
-      } 
+      }
       if (!var54 && var25.nextInt(4) != 0 && skipCount <= (int)var29 / 2) {
         skipCount++;
       } else {
@@ -186,7 +186,7 @@ public class MysteriumPatchesFixesOld {
         double var37 = par10 - var21;
         double var39 = (par16 - par15) + (par12 + 18.0F);
         if (var35 * var35 + var37 * var37 > var39 * var39)
-          return; 
+          return;
         skipCount = 0;
         double var29_2 = var29 * 2.0D;
         if (par6 >= var19 - 16.0D - var29_2 && par10 >= var21 - 16.0D - var29_2 && par6 <= var19 + 16.0D + var29_2 && par10 <= var21 + 16.0D + var29_2) {
@@ -197,20 +197,20 @@ public class MysteriumPatchesFixesOld {
           int var56 = MathHelper.floor_double(par10 - var29) - par4 * 16 - 1;
           int var40 = MathHelper.floor_double(par10 + var29) - par4 * 16 + 1;
           if (var55 < 0)
-            var55 = 0; 
+            var55 = 0;
           if (var36 > 16)
-            var36 = 16; 
+            var36 = 16;
           if (var57 < 0)
-            var57 = 0; 
+            var57 = 0;
           if (var38 > 126)
-            var38 = 126; 
+            var38 = 126;
           if (var56 < 0)
-            var56 = 0; 
+            var56 = 0;
           if (var40 > 16)
-            var40 = 16; 
+            var40 = 16;
           double noiseMultiplier = 0.55D / (var29_2 - 2.0D);
           if (noiseMultiplier > 0.3D)
-            noiseMultiplier = 0.3D; 
+            noiseMultiplier = 0.3D;
           for (int var42 = var55; var42 < var36; var42++) {
             double var59 = ((var42 + par3 * 16) + 0.5D - par6) / var29;
             var59 *= var59;
@@ -229,119 +229,119 @@ public class MysteriumPatchesFixesOld {
                       int biome = (world.getBiomeGenForCoordsBody(var42 + par3 * 16, var45 + par4 * 16)).biomeID;
                       if (var50 < 60 || biome != 16) {
                         if (var53 == Blocks.grass)
-                          grassMycelium = 1; 
+                          grassMycelium = 1;
                         if (var53 == Blocks.mycelium)
-                          grassMycelium = 2; 
+                          grassMycelium = 2;
                         if (var50 < 10) {
                           par5ArrayOfBlock[var48] = Blocks.lava;
                         } else {
                           par5ArrayOfBlock[var48] = null;
                           if (grassMycelium > 0 && par5ArrayOfBlock[var48 - 1] == Blocks.dirt) {
                             if (grassMycelium == 1)
-                              par5ArrayOfBlock[var48 - 1] = (Block)Blocks.grass; 
+                              par5ArrayOfBlock[var48 - 1] = (Block)Blocks.grass;
                             if (grassMycelium == 2)
-                              par5ArrayOfBlock[var48 - 1] = (Block)Blocks.mycelium; 
-                          } 
+                              par5ArrayOfBlock[var48 - 1] = (Block)Blocks.mycelium;
+                          }
                           Block fallingBlock = par5ArrayOfBlock[var48 + 1];
                           if (fallingBlock != Blocks.sand) {
                             if (fallingBlock == Blocks.gravel)
-                              par5ArrayOfBlock[var48 + 1] = Blocks.stone; 
+                              par5ArrayOfBlock[var48 + 1] = Blocks.stone;
                           } else if ((biome < 36 || biome > 39) && (biome < 164 || biome > 167)) {
                             par5ArrayOfBlock[var48 + 1] = Blocks.sandstone;
                           } else {
                             par5ArrayOfBlock[var48 + 1] = Blocks.stained_hardened_clay;
-                          } 
-                        } 
-                      } 
-                    } 
-                  } 
+                          }
+                        }
+                      }
+                    }
+                  }
                   var48--;
                   yIndex--;
-                }  
-            } 
-          } 
+                }
+            }
+          }
           if (var54)
-            break; 
-        } 
-      } 
-    } 
+            break;
+        }
+      }
+    }
   }
-  
+
   protected static boolean validGiantCaveLocation(int varChunkX, int varChunkZ) {
     int chunkModX = varChunkX & 0xF;
     int chunkModZ = varChunkZ & 0xF;
     if ((chunkModX != 0 || chunkModZ != 0) && (chunkModX != 8 || chunkModZ != 8))
-      return false; 
+      return false;
     if (varChunkX * varChunkX + varChunkZ * varChunkZ <= 128)
-      return false; 
+      return false;
     b.setSeed(varChunkX * seedX ^ varChunkZ * seedZ ^ worldSeed);
     if (b.nextInt(colossalCaveChance) <= colossalCaveChance / 2)
-      return false; 
+      return false;
     b.setSeed((varChunkX - 16) * seedX ^ varChunkZ * seedZ ^ worldSeed);
     if (b.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     b.setSeed((varChunkX + 16) * seedX ^ varChunkZ * seedZ ^ worldSeed);
     if (b.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     b.setSeed(varChunkX * seedX ^ (varChunkZ - 16) * seedZ ^ worldSeed);
     if (b.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     b.setSeed(varChunkX * seedX ^ (varChunkZ + 16) * seedZ ^ worldSeed);
     if (b.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     b.setSeed((varChunkX - 8) * seedX ^ (varChunkZ - 8) * seedZ ^ worldSeed);
     if (b.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     b.setSeed((varChunkX + 8) * seedX ^ (varChunkZ - 8) * seedZ ^ worldSeed);
     if (b.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     b.setSeed((varChunkX - 8) * seedX ^ (varChunkZ + 8) * seedZ ^ worldSeed);
     if (b.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     b.setSeed((varChunkX + 8) * seedX ^ (varChunkZ + 8) * seedZ ^ worldSeed);
     if (b.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     b.setSeed((varChunkX - 24) * seedX ^ (varChunkZ - 8) * seedZ ^ worldSeed);
     if (b.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     b.setSeed((varChunkX - 16) * seedX ^ (varChunkZ - 16) * seedZ ^ worldSeed);
     if (b.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     b.setSeed((varChunkX - 8) * seedX ^ (varChunkZ - 24) * seedZ ^ worldSeed);
     if (b.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     b.setSeed((varChunkX + 24) * seedX ^ (varChunkZ - 8) * seedZ ^ worldSeed);
     if (b.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     b.setSeed((varChunkX + 16) * seedX ^ (varChunkZ - 16) * seedZ ^ worldSeed);
     if (b.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     b.setSeed((varChunkX + 8) * seedX ^ (varChunkZ - 24) * seedZ ^ worldSeed);
     if (b.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     b.setSeed((varChunkX - 24) * seedX ^ (varChunkZ + 8) * seedZ ^ worldSeed);
     if (b.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     b.setSeed((varChunkX - 16) * seedX ^ (varChunkZ + 16) * seedZ ^ worldSeed);
     if (b.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     b.setSeed((varChunkX - 8) * seedX ^ (varChunkZ + 24) * seedZ ^ worldSeed);
     if (b.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     b.setSeed((varChunkX + 24) * seedX ^ (varChunkZ + 8) * seedZ ^ worldSeed);
     if (b.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     b.setSeed((varChunkX + 16) * seedX ^ (varChunkZ + 16) * seedZ ^ worldSeed);
     if (b.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     b.setSeed((varChunkX + 8) * seedX ^ (varChunkZ + 24) * seedZ ^ worldSeed);
     if (b.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     b.setSeed(varChunkX * seedX ^ varChunkZ * seedZ ^ worldSeed);
     int tmp = b.nextInt(2) + b.nextInt(2) + b.nextInt(2);
     return true;
   }
-  
+
   protected static boolean validCaveLocation(int chunkX, int chunkZ) {
     int caveCount = 0;
     genCaves = true;
@@ -353,21 +353,21 @@ public class MysteriumPatchesFixesOld {
             genCaves = false;
             genFillerCaves = false;
             return false;
-          } 
+          }
           if (genFillerCaves) {
             b.setSeed((chunkX + cx) * seedX ^ (chunkZ + cz) * seedZ ^ worldSeed);
             int size = b.nextInt(b.nextInt(b.nextInt(40) + 1) + 1);
             if (b.nextInt(15) == 0)
-              caveCount += size; 
+              caveCount += size;
             if (caveCount > 1)
-              genFillerCaves = false; 
-          } 
-        } 
-      } 
-    } 
+              genFillerCaves = false;
+          }
+        }
+      }
+    }
     return true;
   }
-  
+
   protected static void generateRavine(long par1, int par3, int par4, Block[] par5ArrayOfBlock, double par6, double par8, double par10, float par12, float par13, float par14, double height, int bigRavine) {
     Random var19 = new Random(par1);
     noiseGen.setSeed(par1);
@@ -383,40 +383,40 @@ public class MysteriumPatchesFixesOld {
       if (bigRavine == 2) {
         par16 += 100 + noiseGen.nextInt(61);
         if (par16 > 336)
-          par16 = 336; 
+          par16 = 336;
         par12 += 3.0F + noiseGen.nextFloat() * 2.0F;
         if (par12 > 15.0F)
-          par12 = 15.0F; 
-      } 
+          par12 = 15.0F;
+      }
       curviness = par16 / 2240.0F;
-    } 
+    }
     float var27 = 1.0F;
     int skipCount;
     for (skipCount = 0; skipCount < 128; skipCount++) {
       if (skipCount == 0 || var19.nextInt(3) == 0)
-        var27 += var19.nextFloat() * var19.nextFloat(); 
-    } 
+        var27 += var19.nextFloat() * var19.nextFloat();
+    }
     skipCount = 5;
     float ravineDataMultiplier = 1.1F - (par12 - 2.0F) * 0.07F;
     if (ravineDataMultiplier < 0.6F)
-      ravineDataMultiplier = 0.6F; 
+      ravineDataMultiplier = 0.6F;
     int par15;
     for (par15 = 0; par15 < 128; par15++) {
       skipCount++;
       if (skipCount > 1 && (skipCount > 3 || noiseGen.nextInt(3) == 0)) {
         skipCount = 0;
         var27 = (1.0F + noiseGen.nextFloat() * noiseGen.nextFloat() * ravineDataMultiplier) * (0.95F + noiseGen.nextInt(2) * 0.1F);
-      } 
+      }
       ravineData[par15] = var27 * var27;
-    } 
+    }
     skipCount = 999;
     for (par15 = 0; par15 < par16; par15++) {
       double var53 = 1.5D + (MathHelper.sin(par15 * 3.141593F / par16) * par12);
       if (bigRavine > 0) {
         height = 3.416667D - var53 / 18.0D;
         if (height > 3.0D)
-          height = 3.0D; 
-      } 
+          height = 3.0D;
+      }
       double var30 = var53 * height;
       var53 *= var19.nextFloat() * 0.25D + 0.75D;
       var30 *= var19.nextFloat() * 0.25D + 0.75D;
@@ -439,7 +439,7 @@ public class MysteriumPatchesFixesOld {
         double var36 = par10 - var22;
         double var38 = (par16 - par15) + (par12 + 18.0F);
         if (var34 * var34 + var36 * var36 > var38 * var38)
-          return; 
+          return;
         skipCount = 0;
         double noiseMultiplier = 0.3333333D / (var53 - 0.5D);
         double var53_2 = var53 * 2.0D;
@@ -451,17 +451,17 @@ public class MysteriumPatchesFixesOld {
           int var57 = MathHelper.floor_double(par10 - var53) - par4 * 16 - 1;
           int var39 = MathHelper.floor_double(par10 + var53) - par4 * 16 + 1;
           if (var56 < 0)
-            var56 = 0; 
+            var56 = 0;
           if (var35 > 16)
-            var35 = 16; 
+            var35 = 16;
           if (var55 < 0)
-            var55 = 0; 
+            var55 = 0;
           if (var37 > 120)
-            var37 = 120; 
+            var37 = 120;
           if (var57 < 0)
-            var57 = 0; 
+            var57 = 0;
           if (var39 > 16)
-            var39 = 16; 
+            var39 = 16;
           for (int var41 = var56; var41 < var35; var41++) {
             double var59 = ((var41 + par3 * 16) + 0.5D - par6) / var53;
             var59 *= var59;
@@ -480,62 +480,62 @@ public class MysteriumPatchesFixesOld {
                       int biome = (world.getBiomeGenForCoordsBody(var41 + par3 * 16, var44 + par4 * 16)).biomeID;
                       if (var50 < 60.0D || biome != 16) {
                         if (var52 == Blocks.grass)
-                          grassMycelium = 1; 
+                          grassMycelium = 1;
                         if (var52 == Blocks.mycelium)
-                          grassMycelium = 2; 
+                          grassMycelium = 2;
                         if (var49 < 10) {
                           par5ArrayOfBlock[var47] = Blocks.lava;
                         } else {
                           par5ArrayOfBlock[var47] = null;
                           if (grassMycelium > 0 && par5ArrayOfBlock[var47 - 1] == Blocks.dirt) {
                             if (grassMycelium == 1)
-                              par5ArrayOfBlock[var47 - 1] = (Block)Blocks.grass; 
+                              par5ArrayOfBlock[var47 - 1] = (Block)Blocks.grass;
                             if (grassMycelium == 2)
-                              par5ArrayOfBlock[var47 - 1] = (Block)Blocks.mycelium; 
-                          } 
+                              par5ArrayOfBlock[var47 - 1] = (Block)Blocks.mycelium;
+                          }
                           Block fallingBlock = par5ArrayOfBlock[var47 + 1];
                           if (fallingBlock != Blocks.sand) {
                             if (fallingBlock == Blocks.gravel)
-                              par5ArrayOfBlock[var47 + 1] = Blocks.dirt; 
+                              par5ArrayOfBlock[var47 + 1] = Blocks.dirt;
                           } else if ((biome < 36 || biome > 39) && (biome < 164 || biome > 167)) {
                             par5ArrayOfBlock[var47 + 1] = Blocks.sandstone;
                           } else {
                             par5ArrayOfBlock[var47 + 1] = Blocks.stained_hardened_clay;
-                          } 
-                        } 
-                      } 
-                    } 
-                  } 
+                          }
+                        }
+                      }
+                    }
+                  }
                   var47--;
                   yIndex--;
-                }  
-            } 
-          } 
-        } 
-      } 
-    } 
+                }
+            }
+          }
+        }
+      }
+    }
   }
-  
+
   @Fix(returnSetting = EnumReturnSetting.ON_TRUE, booleanAlwaysReturned = false)
   public static boolean generate(WorldGenLiquids l, World world, Random random, int x, int y, int z) {
     boolean type = (l.field_150521_a.getMaterial() == Material.water);
     if (WGConfig.disableSourceWater && type && (!WGConfig.disableSourceUnderground || y < 64))
-      return true; 
+      return true;
     if (WGConfig.disableSourceLava && !type && (!WGConfig.disableSourceUnderground || y < 64))
-      return true; 
+      return true;
     return false;
   }
-  
+
   private static Random newRand = new Random();
-  
+
   public static MapGenStronghold strongholdGenerator = new MapGenStronghold();
-  
+
   public static MapGenVillage villageGenerator = new MapGenVillage();
-  
+
   public static MapGenMineshaft mineshaftGenerator = new MapGenMineshaft();
-  
+
   public static MapGenScatteredFeature scatteredFeatureGenerator = new MapGenScatteredFeature();
-  
+
   @Fix(returnSetting = EnumReturnSetting.ALWAYS)
   public static void populate(ChunkProviderGenerate g, IChunkProvider p_73153_1_, int p_73153_2_, int p_73153_3_) {
     int k = p_73153_2_ * 16;
@@ -552,14 +552,14 @@ public class MysteriumPatchesFixesOld {
       MinecraftForge.EVENT_BUS.post((Event)new PopulateChunkEvent.Pre(p_73153_1_, (World)worldServer, newRand, p_73153_2_, p_73153_3_, flag));
       if (worldServer.getWorldInfo().isMapFeaturesEnabled()) {
         if (WGConfig.enableMineshaftSpawn)
-          mineshaftGenerator.generateStructuresInChunk((World)worldServer, newRand, p_73153_2_, p_73153_3_); 
+          mineshaftGenerator.generateStructuresInChunk((World)worldServer, newRand, p_73153_2_, p_73153_3_);
         flag = WGConfig.enableVillageSpawn ? villageGenerator.generateStructuresInChunk((World)worldServer, newRand, p_73153_2_, p_73153_3_) : false;
         if (WGConfig.enableStrongholdSpawn)
-          strongholdGenerator.generateStructuresInChunk((World)worldServer, newRand, p_73153_2_, p_73153_3_); 
+          strongholdGenerator.generateStructuresInChunk((World)worldServer, newRand, p_73153_2_, p_73153_3_);
         if (!WGConfig.enableDesolateSpawn)
-          scatteredFeatureGenerator.generateStructuresInChunk((World)worldServer, newRand, p_73153_2_, p_73153_3_); 
-      } 
-      if (biomegenbase != BiomeGenBase.desert && biomegenbase != BiomeGenBase.desertHills && !flag && newRand.nextInt(WGConfig.waterLakesChance) == 0 && 
+          scatteredFeatureGenerator.generateStructuresInChunk((World)worldServer, newRand, p_73153_2_, p_73153_3_);
+      }
+      if (biomegenbase != BiomeGenBase.desert && biomegenbase != BiomeGenBase.desertHills && !flag && newRand.nextInt(WGConfig.waterLakesChance) == 0 &&
         TerrainGen.populate(p_73153_1_, (World)worldServer, newRand, p_73153_2_, p_73153_3_, flag, PopulateChunkEvent.Populate.EventType.LAKE)) {
         int i = k + newRand.nextInt(16) + 8;
         int l1 = newRand.nextInt(256);
@@ -570,14 +570,14 @@ public class MysteriumPatchesFixesOld {
           l1 = newRand.nextInt(256);
           i2 = l + newRand.nextInt(16) + 8;
           (new WorldGenLakes(Blocks.water)).generate((World)worldServer, newRand, i, l1, i2);
-        } 
+        }
         if (newRand.nextInt(WGConfig.waterLakesChance) == 0) {
           i = k + newRand.nextInt(16) + 8;
           l1 = newRand.nextInt(256);
           i2 = l + newRand.nextInt(16) + 8;
           (new WorldGenLakes(Blocks.water)).generate((World)worldServer, newRand, i, l1, i2);
-        } 
-      } 
+        }
+      }
       if (TerrainGen.populate(p_73153_1_, (World)worldServer, newRand, p_73153_2_, p_73153_3_, flag, PopulateChunkEvent.Populate.EventType.LAVA) && !flag) {
         int i = k + newRand.nextInt(16) + 8;
         int l1 = newRand.nextInt(newRand.nextInt(248) + 8);
@@ -586,7 +586,7 @@ public class MysteriumPatchesFixesOld {
           (new WorldGenLakes(Blocks.lava)).generate((World)worldServer, newRand, i, l1, i2);
         } else if (newRand.nextInt(WGConfig.undergLavaLakesChance) == 0) {
           (new WorldGenLakes(Blocks.lava)).generate((World)worldServer, newRand, i, l1, i2);
-        } 
+        }
         i = k + newRand.nextInt(16) + 8;
         l1 = newRand.nextInt(newRand.nextInt(248) + 8);
         i2 = l + newRand.nextInt(16) + 8;
@@ -594,7 +594,7 @@ public class MysteriumPatchesFixesOld {
           (new WorldGenLakes(Blocks.lava)).generate((World)worldServer, newRand, i, l1, i2);
         } else if (newRand.nextInt(WGConfig.undergLavaLakesChance) == 0) {
           (new WorldGenLakes(Blocks.lava)).generate((World)worldServer, newRand, i, l1, i2);
-        } 
+        }
         i = k + newRand.nextInt(16) + 8;
         l1 = newRand.nextInt(newRand.nextInt(248) + 8);
         i2 = l + newRand.nextInt(16) + 8;
@@ -602,29 +602,29 @@ public class MysteriumPatchesFixesOld {
           (new WorldGenLakes(Blocks.lava)).generate((World)worldServer, newRand, i, l1, i2);
         } else if (newRand.nextInt(WGConfig.undergLavaLakesChance) == 0) {
           (new WorldGenLakes(Blocks.lava)).generate((World)worldServer, newRand, i, l1, i2);
-        } 
-      } 
+        }
+      }
       if (TerrainGen.populate(p_73153_1_, (World)worldServer, newRand, p_73153_2_, p_73153_3_, flag, PopulateChunkEvent.Populate.EventType.LAVA) && newRand.nextInt(WGConfig.undergWaterLakesChance) == 0) {
         int i = k + newRand.nextInt(16) + 8;
         int l1 = newRand.nextInt(newRand.nextInt(248) + 8);
         int i2 = l + newRand.nextInt(16) + 8;
         if (l1 < 63)
-          (new WorldGenLakes(Blocks.water)).generate((World)worldServer, newRand, i, l1, i2); 
+          (new WorldGenLakes(Blocks.water)).generate((World)worldServer, newRand, i, l1, i2);
         if (newRand.nextInt(WGConfig.undergWaterLakesChance) == 0) {
           i = k + newRand.nextInt(16) + 8;
           l1 = newRand.nextInt(newRand.nextInt(248) + 8);
           i2 = l + newRand.nextInt(16) + 8;
           if (l1 < 63)
-            (new WorldGenLakes(Blocks.water)).generate((World)worldServer, newRand, i, l1, i2); 
-        } 
+            (new WorldGenLakes(Blocks.water)).generate((World)worldServer, newRand, i, l1, i2);
+        }
         if (newRand.nextInt(WGConfig.undergWaterLakesChance) == 0) {
           i = k + newRand.nextInt(16) + 8;
           l1 = newRand.nextInt(newRand.nextInt(248) + 8);
           i2 = l + newRand.nextInt(16) + 8;
           if (l1 < 63)
-            (new WorldGenLakes(Blocks.water)).generate((World)worldServer, newRand, i, l1, i2); 
-        } 
-      } 
+            (new WorldGenLakes(Blocks.water)).generate((World)worldServer, newRand, i, l1, i2);
+        }
+      }
       boolean doGen = TerrainGen.populate(p_73153_1_, (World)worldServer, newRand, p_73153_2_, p_73153_3_, flag, PopulateChunkEvent.Populate.EventType.DUNGEON);
       int k1;
       for (k1 = 0; doGen && k1 < 8; k1++) {
@@ -632,11 +632,11 @@ public class MysteriumPatchesFixesOld {
         int i2 = newRand.nextInt(256);
         int j2 = l + newRand.nextInt(16) + 8;
         if (WGConfig.enableDungeonSpawn)
-          (new WorldGenDungeons()).generate((World)worldServer, newRand, l1, i2, j2); 
-      } 
+          (new WorldGenDungeons()).generate((World)worldServer, newRand, l1, i2, j2);
+      }
       biomegenbase.decorate((World)worldServer, newRand, k, l);
       if (TerrainGen.populate(p_73153_1_, (World)worldServer, newRand, p_73153_2_, p_73153_3_, flag, PopulateChunkEvent.Populate.EventType.ANIMALS))
-        SpawnerAnimals.performWorldGenSpawning((World)worldServer, biomegenbase, k + 8, l + 8, 16, 16, newRand); 
+        SpawnerAnimals.performWorldGenSpawning((World)worldServer, biomegenbase, k + 8, l + 8, 16, 16, newRand);
       k += 8;
       l += 8;
       doGen = TerrainGen.populate(p_73153_1_, (World)worldServer, newRand, p_73153_2_, p_73153_3_, flag, PopulateChunkEvent.Populate.EventType.ICE);
@@ -644,16 +644,16 @@ public class MysteriumPatchesFixesOld {
         for (int l1 = 0; l1 < 16; l1++) {
           int i2 = worldServer.getPrecipitationHeight(k + k1, l + l1);
           if (worldServer.isBlockFreezable(k1 + k, i2 - 1, l1 + l))
-            worldServer.setBlock(k1 + k, i2 - 1, l1 + l, Blocks.ice, 0, 2); 
+            worldServer.setBlock(k1 + k, i2 - 1, l1 + l, Blocks.ice, 0, 2);
           if (worldServer.func_147478_e(k1 + k, i2, l1 + l, true))
-            worldServer.setBlock(k1 + k, i2, l1 + l, Blocks.snow_layer, 0, 2); 
-        } 
-      } 
+            worldServer.setBlock(k1 + k, i2, l1 + l, Blocks.snow_layer, 0, 2);
+        }
+      }
       MinecraftForge.EVENT_BUS.post((Event)new PopulateChunkEvent.Post(p_73153_1_, (World)worldServer, newRand, p_73153_2_, p_73153_3_, flag));
       BlockFalling.fallInstantly = false;
-    } 
+    }
   }
-  
+
   protected static void generateColossalCaves(int varChunkX, int varChunkZ, int chunkX, int chunkZ, Block[] par6ArrayOfBlock) {
     if (validGiantCaveLocation(varChunkX, varChunkZ)) {
       int centerX = varChunkX * 16 + 8;
@@ -679,14 +679,14 @@ public class MysteriumPatchesFixesOld {
             subCenterX = centerX + caveSystemCount * 15 + b.nextInt(17) - 84;
             subCenterZ = centerZ + caveSystemCount * 15 + b.nextInt(17) - 84;
             break;
-        } 
+        }
         generateCaveSystem(20, subCenterX, subCenterZ, chunkX, chunkZ, par6ArrayOfBlock, 48);
         for (int i = 0; i < 5; i++)
-          generateCaveNode(b.nextLong(), chunkX, chunkZ, par6ArrayOfBlock, (subCenterX + b.nextInt(48)), (b.nextInt(6) + 10), (subCenterZ + b.nextInt(48)), b.nextFloat() * b.nextFloat() * b.nextFloat() * 6.0F, b.nextFloat() * 6.283185F, (b.nextFloat() - 0.5F) / 4.0F, 0, 0, 1.0D, 0); 
-      } 
-    } 
+          generateCaveNode(b.nextLong(), chunkX, chunkZ, par6ArrayOfBlock, (subCenterX + b.nextInt(48)), (b.nextInt(6) + 10), (subCenterZ + b.nextInt(48)), b.nextFloat() * b.nextFloat() * b.nextFloat() * 6.0F, b.nextFloat() * 6.283185F, (b.nextFloat() - 0.5F) / 4.0F, 0, 0, 1.0D, 0);
+      }
+    }
   }
-  
+
   protected static void generateCaves(int par2, int par3, int par4, int par5, Block[] par6ArrayOfBlock) {
     b.setSeed(chunkSeed);
     int caveSize = b.nextInt(b.nextInt(b.nextInt(40) + 1) + 1);
@@ -698,37 +698,37 @@ public class MysteriumPatchesFixesOld {
         for (int cx = 0; cx < caveCount; cx++) {
           int cz = 1;
           if (b.nextInt(4) == 0)
-            cz += b.nextInt(4); 
+            cz += b.nextInt(4);
           for (int LL = 0; LL < cz; LL++)
-            generateCaveNode(b.nextLong(), par4, par5, par6ArrayOfBlock, (par2 * 16 + b.nextInt(16)), (b.nextInt(6) + 10), (par3 * 16 + b.nextInt(16)), b.nextFloat() * b.nextFloat() * b.nextFloat() * 6.0F, b.nextFloat() * 6.283185F, (b.nextFloat() - 0.5F) / 4.0F, 0, 0, 1.0D, 0); 
-        } 
-      } 
+            generateCaveNode(b.nextLong(), par4, par5, par6ArrayOfBlock, (par2 * 16 + b.nextInt(16)), (b.nextInt(6) + 10), (par3 * 16 + b.nextInt(16)), b.nextFloat() * b.nextFloat() * b.nextFloat() * 6.0F, b.nextFloat() * 6.283185F, (b.nextFloat() - 0.5F) / 4.0F, 0, 0, 1.0D, 0);
+        }
+      }
       if (((par2 % 18 == 0 && par3 % 18 == 0) || (par2 % 18 == 9 && par3 % 18 == 9)) && par2 * par2 + par3 * par3 >= 1024) {
         generateCaveNode(b.nextLong(), par4, par5, par6ArrayOfBlock, (par2 * 16 + 8), (b.nextInt(11) + 20), (par3 * 16 + 8), b.nextFloat() * 12.0F + b.nextFloat() * 6.0F + 3.0F, b.nextFloat() * 6.283185F, (b.nextFloat() - 0.5F) / 4.0F, 0, 0, 1.0D, 2);
       } else if (caveSize > 4 && caveSize < 15 && b.nextBoolean()) {
         generateCaveNode(b.nextLong(), par4, par5, par6ArrayOfBlock, (par2 * 16 + 8), (b.nextInt(11) + 20), (par3 * 16 + 8), b.nextFloat() * b.nextFloat() * b.nextFloat() * 8.0F + 2.0F, b.nextFloat() * 6.283185F, (b.nextFloat() - 0.5F) / 4.0F, 0, 0, 1.0D, 1);
-      } 
+      }
     } else if (genCave == 5 || genCave == 10) {
       int caveCount = (world.getBiomeGenForCoordsBody(par2 * 16 + 8, par3 * 16 + 8)).biomeID;
       caveSize = 0;
       if (caveCount != 3 && caveCount != 34 && caveCount != 131 && caveCount != 162) {
         if ((caveCount < 36 || caveCount > 39) && (caveCount < 164 || caveCount > 167)) {
           if (caveCount == 17)
-            caveSize = 5; 
+            caveSize = 5;
         } else {
           caveSize = 10;
-        } 
+        }
       } else {
         caveSize = 15;
-      } 
+      }
       if (!genCaves)
-        caveSize /= 2; 
+        caveSize /= 2;
       if (caveSize > 0) {
         int cx = b.nextInt(b.nextInt(caveSize) + 1);
         for (int cz = 0; cz < cx; cz++)
-          generateCaveNode(b.nextLong(), par4, par5, par6ArrayOfBlock, (par2 * 16 + b.nextInt(16)), (b.nextInt(50) + 40), (par3 * 16 + b.nextInt(16)), b.nextFloat() * b.nextFloat() * b.nextFloat() * 6.0F, b.nextFloat() * 6.283185F, (b.nextFloat() - 0.5F) / 4.0F, 0, 0, 1.0D, 0); 
-      } 
-    } 
+          generateCaveNode(b.nextLong(), par4, par5, par6ArrayOfBlock, (par2 * 16 + b.nextInt(16)), (b.nextInt(50) + 40), (par3 * 16 + b.nextInt(16)), b.nextFloat() * b.nextFloat() * b.nextFloat() * 6.0F, b.nextFloat() * 6.283185F, (b.nextFloat() - 0.5F) / 4.0F, 0, 0, 1.0D, 0);
+      }
+    }
     if (genFillerCaves) {
       int caveCount = 0;
       for (int cx = -1; cx <= 1; cx++) {
@@ -736,26 +736,26 @@ public class MysteriumPatchesFixesOld {
           if (cx != 0 && cz != 0) {
             validCaveLocation(par2 + cx, par3 + cz);
             if (genFillerCaves)
-              caveCount++; 
-          } 
-        } 
-      } 
+              caveCount++;
+          }
+        }
+      }
       if (caveCount == 0) {
         caveCount = 1;
       } else if (caveCount > 2) {
         caveCount = 8;
-      } 
+      }
       b.setSeed(chunkSeed);
       if (b.nextInt(caveCount) == 0) {
         generateCaveSystem(b.nextInt(b.nextInt(9) + 1) + 3, par2 * 16, par3 * 16, par4, par5, par6ArrayOfBlock, 16);
         if (b.nextBoolean())
-          generateCaveNode(b.nextLong(), par4, par5, par6ArrayOfBlock, (par2 * 16 + b.nextInt(16)), (b.nextInt(6) + 10), (par3 * 16 + b.nextInt(16)), b.nextFloat() * b.nextFloat() * b.nextFloat() * 6.0F, b.nextFloat() * 6.283185F, (b.nextFloat() - 0.5F) / 4.0F, 0, 0, 1.0D, 0); 
+          generateCaveNode(b.nextLong(), par4, par5, par6ArrayOfBlock, (par2 * 16 + b.nextInt(16)), (b.nextInt(6) + 10), (par3 * 16 + b.nextInt(16)), b.nextFloat() * b.nextFloat() * b.nextFloat() * 6.0F, b.nextFloat() * 6.283185F, (b.nextFloat() - 0.5F) / 4.0F, 0, 0, 1.0D, 0);
         if (b.nextInt(4) == 0)
-          generateCaveNode(b.nextLong(), par4, par5, par6ArrayOfBlock, (par2 * 16 + 8), (b.nextInt(11) + 20), (par3 * 16 + 8), b.nextFloat() * b.nextFloat() * b.nextFloat() * 8.0F + 2.0F, b.nextFloat() * 6.283185F, (b.nextFloat() - 0.5F) / 4.0F, 0, 0, 1.0D, 1); 
-      } 
-    } 
+          generateCaveNode(b.nextLong(), par4, par5, par6ArrayOfBlock, (par2 * 16 + 8), (b.nextInt(11) + 20), (par3 * 16 + 8), b.nextFloat() * b.nextFloat() * b.nextFloat() * 8.0F + 2.0F, b.nextFloat() * 6.283185F, (b.nextFloat() - 0.5F) / 4.0F, 0, 0, 1.0D, 1);
+      }
+    }
   }
-  
+
   protected static void generateCaveSystem(int numberOfCaves, int par2, int par3, int par4, int par5, Block[] par6ArrayOfBlock, int spread) {
     for (int var8 = 0; var8 < numberOfCaves; var8++) {
       double var9 = (par2 + b.nextInt(spread));
@@ -765,18 +765,18 @@ public class MysteriumPatchesFixesOld {
       if (b.nextInt(4) == 0) {
         generateLargeCaveNode(b.nextLong(), par4, par5, par6ArrayOfBlock, var9, var11, var13);
         var15 += b.nextInt(4);
-      } 
+      }
       for (int var16 = 0; var16 < var15; var16++) {
         float var17 = b.nextFloat() * 3.1415927F * 2.0F;
         float var18 = (b.nextFloat() - 0.5F) / 4.0F;
         float var19 = b.nextFloat() * 2.0F + b.nextFloat();
         if (b.nextInt(10) == 0)
-          var19 *= b.nextFloat() * b.nextFloat() * 4.0F + 1.0F; 
+          var19 *= b.nextFloat() * b.nextFloat() * 4.0F + 1.0F;
         generateCaveNode(b.nextLong(), par4, par5, par6ArrayOfBlock, var9, var11, var13, var19, var17, var18, 0, 0, 1.0D, 0);
-      } 
-    } 
+      }
+    }
   }
-  
+
   protected static void generateRavines(int par2, int par3, int par4, int par5, Block[] par6ArrayOfBlock) {
     ImmersiveCavegen.rand.setSeed(chunkSeed);
     if (ImmersiveCavegen.rand.nextInt(50) == 0) {
@@ -797,14 +797,14 @@ public class MysteriumPatchesFixesOld {
         int biome = (world.getBiomeGenForCoordsBody(par2 * 16 + 8, par3 * 16 + 8)).biomeID;
         if ((biome >= 36 && biome <= 39) || (biome >= 164 && biome <= 167)) {
           if (var9 < 40.0D)
-            var9 += ImmersiveCavegen.rand.nextInt(16); 
+            var9 += ImmersiveCavegen.rand.nextInt(16);
           height += (ImmersiveCavegen.rand.nextInt(2) + 1);
-        } 
-      } 
+        }
+      }
       generateRavine(ravineSeed, par4, par5, par6ArrayOfBlock, var7, var9, var11, var17, var15, var16, height, bigRavine);
-    } 
+    }
   }
-  
+
   public static boolean waterCheck(int blockX, int blockY, int blockZ, Block[] blockData) {
     if (blockY >= 25 && blockY <= 62) {
       int x;
@@ -815,113 +815,113 @@ public class MysteriumPatchesFixesOld {
               int xyz = x << 12 | z << 8;
               for (int y = blockY - 1; y <= blockY + 1; y++) {
                 if (blockData[xyz + y] == Blocks.water)
-                  return false; 
-              } 
-            } 
-          }  
-      } 
+                  return false;
+              }
+            }
+          }
+      }
       for (x = blockZ - 1; x <= blockZ + 1; x++) {
         if (x >= 0 && x <= 15) {
           int xyz = blockX - 2;
           if (xyz >= 0 && blockData[xyz << 12 | x << 8 | blockY] == Blocks.water)
-            return false; 
+            return false;
           xyz = blockX + 2;
           if (xyz <= 15 && blockData[xyz << 12 | x << 8 | blockY] == Blocks.water)
-            return false; 
-        } 
-      } 
+            return false;
+        }
+      }
       for (x = blockX - 1; x <= blockX + 1; x++) {
         if (x >= 0 && x <= 15) {
           int xyz = blockZ - 2;
           if (xyz >= 0 && blockData[x << 12 | xyz << 8 | blockY] == Blocks.water)
-            return false; 
+            return false;
           xyz = blockZ + 2;
           if (xyz <= 15 && blockData[x << 12 | xyz << 8 | blockY] == Blocks.water)
-            return false; 
-        } 
-      } 
+            return false;
+        }
+      }
       if (blockData[blockX << 12 | blockZ << 8 | blockY - 2] == Blocks.water)
-        return false; 
+        return false;
       if (blockData[blockX << 12 | blockZ << 8 | blockY + 2] == Blocks.water)
-        return false; 
-    } 
+        return false;
+    }
     return true;
   }
-  
+
   public static boolean validGiantCaveLocation(int varChunkX, int varChunkZ, long seedX, long seedZ, long worldSeed) {
     int chunkModX = varChunkX & 0xF;
     int chunkModZ = varChunkZ & 0xF;
     if ((chunkModX != 0 || chunkModZ != 0) && (chunkModX != 8 || chunkModZ != 8))
-      return false; 
+      return false;
     if (varChunkX * varChunkX + varChunkZ * varChunkZ <= 512)
-      return false; 
+      return false;
     ImmersiveCavegen.rand.setSeed(varChunkX * seedX ^ varChunkZ * seedZ ^ worldSeed);
     if (ImmersiveCavegen.rand.nextInt(colossalCaveChance) != 0)
-      return false; 
+      return false;
     ImmersiveCavegen.rand.setSeed((varChunkX - 16) * seedX ^ varChunkZ * seedZ ^ worldSeed);
     if (ImmersiveCavegen.rand.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     ImmersiveCavegen.rand.setSeed((varChunkX + 16) * seedX ^ varChunkZ * seedZ ^ worldSeed);
     if (ImmersiveCavegen.rand.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     ImmersiveCavegen.rand.setSeed(varChunkX * seedX ^ (varChunkZ - 16) * seedZ ^ worldSeed);
     if (ImmersiveCavegen.rand.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     ImmersiveCavegen.rand.setSeed(varChunkX * seedX ^ (varChunkZ + 16) * seedZ ^ worldSeed);
     if (ImmersiveCavegen.rand.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     ImmersiveCavegen.rand.setSeed((varChunkX - 8) * seedX ^ (varChunkZ - 8) * seedZ ^ worldSeed);
     if (ImmersiveCavegen.rand.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     ImmersiveCavegen.rand.setSeed((varChunkX + 8) * seedX ^ (varChunkZ - 8) * seedZ ^ worldSeed);
     if (ImmersiveCavegen.rand.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     ImmersiveCavegen.rand.setSeed((varChunkX - 8) * seedX ^ (varChunkZ + 8) * seedZ ^ worldSeed);
     if (ImmersiveCavegen.rand.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     ImmersiveCavegen.rand.setSeed((varChunkX + 8) * seedX ^ (varChunkZ + 8) * seedZ ^ worldSeed);
     if (ImmersiveCavegen.rand.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     ImmersiveCavegen.rand.setSeed((varChunkX - 24) * seedX ^ (varChunkZ - 8) * seedZ ^ worldSeed);
     if (ImmersiveCavegen.rand.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     ImmersiveCavegen.rand.setSeed((varChunkX - 16) * seedX ^ (varChunkZ - 16) * seedZ ^ worldSeed);
     if (ImmersiveCavegen.rand.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     ImmersiveCavegen.rand.setSeed((varChunkX - 8) * seedX ^ (varChunkZ - 24) * seedZ ^ worldSeed);
     if (ImmersiveCavegen.rand.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     ImmersiveCavegen.rand.setSeed((varChunkX + 24) * seedX ^ (varChunkZ - 8) * seedZ ^ worldSeed);
     if (ImmersiveCavegen.rand.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     ImmersiveCavegen.rand.setSeed((varChunkX + 16) * seedX ^ (varChunkZ - 16) * seedZ ^ worldSeed);
     if (ImmersiveCavegen.rand.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     ImmersiveCavegen.rand.setSeed((varChunkX + 8) * seedX ^ (varChunkZ - 24) * seedZ ^ worldSeed);
     if (ImmersiveCavegen.rand.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     ImmersiveCavegen.rand.setSeed((varChunkX - 24) * seedX ^ (varChunkZ + 8) * seedZ ^ worldSeed);
     if (ImmersiveCavegen.rand.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     ImmersiveCavegen.rand.setSeed((varChunkX - 16) * seedX ^ (varChunkZ + 16) * seedZ ^ worldSeed);
     if (ImmersiveCavegen.rand.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     ImmersiveCavegen.rand.setSeed((varChunkX - 8) * seedX ^ (varChunkZ + 24) * seedZ ^ worldSeed);
     if (ImmersiveCavegen.rand.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     ImmersiveCavegen.rand.setSeed((varChunkX + 24) * seedX ^ (varChunkZ + 8) * seedZ ^ worldSeed);
     if (ImmersiveCavegen.rand.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     ImmersiveCavegen.rand.setSeed((varChunkX + 16) * seedX ^ (varChunkZ + 16) * seedZ ^ worldSeed);
     if (ImmersiveCavegen.rand.nextInt(colossalCaveChance) == 0)
-      return false; 
+      return false;
     ImmersiveCavegen.rand.setSeed((varChunkX + 8) * seedX ^ (varChunkZ + 24) * seedZ ^ worldSeed);
     return (ImmersiveCavegen.rand.nextInt(colossalCaveChance) != 0);
   }
-  
+
   public static boolean didSpawn(MapGenMineshaft instance, int chunkX, int chunkZ) {
     if (((chunkX + 2000000) % 14 != 0 || (chunkZ + 2000000) % 14 != 0) && ((chunkX + 2000000) % 14 != 7 || (chunkZ + 2000000) % 14 != 7))
-      return false; 
+      return false;
     long worldSeed = ((MapGenBase)instance).worldObj.getSeed();
     ImmersiveCavegen.rand.setSeed(worldSeed);
     long seedX = ImmersiveCavegen.rand.nextLong();
@@ -933,31 +933,31 @@ public class MysteriumPatchesFixesOld {
           ImmersiveCavegen.rand.setSeed((chunkX + cx) * seedX ^ (chunkZ + cz) * seedZ ^ worldSeed);
           int size = ImmersiveCavegen.rand.nextInt(ImmersiveCavegen.rand.nextInt(ImmersiveCavegen.rand.nextInt(40) + 1) + 1);
           if (ImmersiveCavegen.rand.nextInt(15) == 0)
-            caveCount += size; 
+            caveCount += size;
           if (caveCount > 33 || validGiantCaveLocation(chunkX + cx, chunkZ + cz, seedX, seedZ, worldSeed))
-            return false; 
-        } 
-      } 
-    } 
+            return false;
+        }
+      }
+    }
     if (caveCount >= 10)
-      return true; 
+      return true;
     if (caveCount >= 5 && ((MapGenBase)instance).rand.nextBoolean())
-      return true; 
+      return true;
     return (((MapGenBase)instance).rand.nextInt(4) == 0);
   }
-  
+
   @Fix(returnSetting = EnumReturnSetting.ON_TRUE, anotherMethodReturned = "didSpawn")
   public static boolean canSpawnStructureAtCoords(MapGenMineshaft instance, int chunkX, int chunkZ) {
     if (WGConfig.enableBetterMineshafts)
-      return true; 
+      return true;
     return false;
   }
-  
+
   @Fix(returnSetting = EnumReturnSetting.ALWAYS)
   public static boolean generate(WorldGenSand instance, World p_76484_1_, Random p_76484_2_, int p_76484_3_, int p_76484_4_, int p_76484_5_) {
     if (WGConfig.enableBetterSand) {
       if (p_76484_1_.getBlock(p_76484_3_, p_76484_4_, p_76484_5_).getMaterial() != Material.water)
-        return false; 
+        return false;
       int var6 = p_76484_2_.nextInt(instance.radius - 2) + 2;
       byte var7 = 2;
       for (int var8 = p_76484_3_ - var6; var8 <= p_76484_3_ + var6; var8++) {
@@ -976,14 +976,14 @@ public class MysteriumPatchesFixesOld {
                   p_76484_1_.setBlock(var8, var12, var9, Blocks.stone, 0, 2);
                 } else {
                   p_76484_1_.setBlock(var8, var12, var9, instance.field_150517_a, 0, 2);
-                }  
-            }  
-        } 
-      } 
+                }
+            }
+        }
+      }
       return true;
-    } 
+    }
     if (p_76484_1_.getBlock(p_76484_3_, p_76484_4_, p_76484_5_).getMaterial() != Material.water)
-      return false; 
+      return false;
     int l = p_76484_2_.nextInt(instance.radius - 2) + 2;
     byte b0 = 2;
     for (int i1 = p_76484_3_ - l; i1 <= p_76484_3_ + l; i1++) {
@@ -994,10 +994,10 @@ public class MysteriumPatchesFixesOld {
           for (int i2 = p_76484_4_ - b0; i2 <= p_76484_4_ + b0; i2++) {
             Block block = p_76484_1_.getBlock(i1, i2, j1);
             if (block == Blocks.dirt || block == Blocks.grass)
-              p_76484_1_.setBlock(i1, i2, j1, instance.field_150517_a, 0, 2); 
-          }  
-      } 
-    } 
+              p_76484_1_.setBlock(i1, i2, j1, instance.field_150517_a, 0, 2);
+          }
+      }
+    }
     return true;
   }
 }

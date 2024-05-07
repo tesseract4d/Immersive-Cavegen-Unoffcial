@@ -51,7 +51,7 @@ import net.tclproject.immersivecavegen.world.GenerateStoneStalactite;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.GL11;
 
-@Mod(modid = "immersivecavegen", version = "1.2g-hotfix4", name = "Immersive Cavegen")
+@Mod(modid = "immersivecavegen", version = "1.2g-hotfix4", name = "Immersive Cavegen",dependencies = "required-after:MysteriumLib")
 public class ImmersiveCavegen {
   public static final String MODID = "immersivecavegen";
 

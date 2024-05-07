@@ -1,4 +1,4 @@
-package net.tclproject.mysteriumlib.asm.fixes;
+package net.tclproject.immersivecavegen.fixes;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -39,16 +39,16 @@ public class MysteriumPatchesFixLoaderB extends CustomLoadingPlugin {
     }
     if (!oldGen) {
       if (mineshafts)
-        registerClassWithFixes("net.tclproject.mysteriumlib.asm.fixes.MysteriumPatchesFixesB");
+        registerClassWithFixes("net.tclproject.immersivecavegen.fixes.MysteriumPatchesFixesB");
       if (sand)
-        registerClassWithFixes("net.tclproject.mysteriumlib.asm.fixes.MysteriumPatchesFixesSand");
+        registerClassWithFixes("net.tclproject.immersivecavegen.fixes.MysteriumPatchesFixesSand");
       if (caverns)
-        registerClassWithFixes("net.tclproject.mysteriumlib.asm.fixes.MysteriumPatchesFixesRavine");
+        registerClassWithFixes("net.tclproject.immersivecavegen.fixes.MysteriumPatchesFixesRavine");
       if (popChanges)
-        registerClassWithFixes("net.tclproject.mysteriumlib.asm.fixes.MysteriumPatchesFixesPop");
-      registerClassWithFixes("net.tclproject.mysteriumlib.asm.fixes.MysteriumPatchesFixesCave");
+        registerClassWithFixes("net.tclproject.immersivecavegen.fixes.MysteriumPatchesFixesPop");
+      registerClassWithFixes("net.tclproject.immersivecavegen.fixes.MysteriumPatchesFixesCave");
     } else if (oldGen) {
-      registerClassWithFixes("net.tclproject.mysteriumlib.asm.fixes.MysteriumPatchesFixesOld");
+      registerClassWithFixes("net.tclproject.immersivecavegen.fixes.MysteriumPatchesFixesOld");
     }
   }
 }

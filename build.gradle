@@ -8,7 +8,7 @@ plugins {
 jar {
     manifest {
         attributes 'FMLAT': 'immersivecavegen_at.cfg'
-        attributes 'FMLCorePlugin': 'net.tclproject.mysteriumlib.asm.fixes.MysteriumPatchesFixLoaderB'
+        attributes 'FMLCorePlugin': 'net.tclproject.immersivecavegen.fixes.MysteriumPatchesFixLoaderB'
         attributes 'FMLCorePluginContainsFMLMod': 'true'
     }
 }

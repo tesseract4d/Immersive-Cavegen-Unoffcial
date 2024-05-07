@@ -1,4 +1,4 @@
-package net.tclproject.mysteriumlib.asm.fixes;
+package net.tclproject.immersivecavegen.fixes;
 
 import java.util.Random;
 
@@ -93,12 +93,10 @@ public class MysteriumPatchesFixesCave {
     @Fix(returnSetting = EnumReturnSetting.ON_TRUE)
     public static boolean func_151539_a(MapGenBase instance, IChunkProvider p_151539_1_, World world, int chunkX, int chunkZ, Block[] data) {
         for (String str : WGConfig.dimblacklist) {
-            if (world != null && String.valueOf(world.provider.dimensionId).equalsIgnoreCase(str))
-                return false;
+            if (world != null && String.valueOf(world.provider.dimensionId).equalsIgnoreCase(str)) return false;
         }
         if (instance instanceof MapGenCaves) {
-            if (!isInitialized)
-                initialize(world);
+            if (!isInitialized) initialize(world);
             generate(chunkX, chunkZ, data);
             return true;
         }
@@ -122,8 +120,7 @@ public class MysteriumPatchesFixesCave {
             colossalCaveSeedMultiplier = seedMultiplier + i;
             for (int z = -range; z <= range; z++) {
                 for (int x = -range; x <= range; x++) {
-                    if (validColossalCaveLocation(x, z, x * x + z * z))
-                        break label36;
+                    if (validColossalCaveLocation(x, z, x * x + z * z)) break label36;
                 }
             }
         }
@@ -131,8 +128,7 @@ public class MysteriumPatchesFixesCave {
             regionalCaveSeedMultiplier = seedMultiplier + i;
             for (int z = -range; z <= range; z += 12) {
                 for (int x = -range; x <= range; x += 12) {
-                    if (validRegionalCaveLocation(x, z, x * x + z * z) && isGiantCaveRegion(x, z))
-                        return;
+                    if (validRegionalCaveLocation(x, z, x * x + z * z) && isGiantCaveRegion(x, z)) return;
                 }
             }
         }
@@ -198,21 +194,18 @@ public class MysteriumPatchesFixesCave {
             for (int z = 0; z < 16; z++) {
                 int index1 = index << 12 | z << 8;
                 for (int y = 1; y <= 4; y++) {
-                    if (chunkData[index1 | y] == Blocks.bedrock)
-                        chunkData[index1 | y] = Blocks.stone;
+                    if (chunkData[index1 | y] == Blocks.bedrock) chunkData[index1 | y] = Blocks.stone;
                 }
             }
         }
         if ((chunkX & 0x1) == (chunkZ & 0x1) && (biomeList[((worldObj.getBiomeGenForCoordsBody(chunkX_16 + 8, chunkZ_16 + 8)).biomeID > 255) ? 20 : (worldObj.getBiomeGenForCoordsBody(chunkX_16 + 8, chunkZ_16 + 8)).biomeID] & 0x10) != 0) {
             index = rand.nextInt(16) << 12 | rand.nextInt(16) << 8 | rand.nextInt(3) + 1;
-            if (chunkData[index] == Blocks.stone)
-                chunkData[index] = Blocks.emerald_ore;
+            if (chunkData[index] == Blocks.stone) chunkData[index] = Blocks.emerald_ore;
         }
     }
 
     private static void generateCaves(int chunkX, int chunkZ, int flag, int genCaves) {
-        if (rand.nextInt(100) + 1 <= WGConfig.caveNormalReductionPercentage)
-            return;
+        if (rand.nextInt(100) + 1 <= WGConfig.caveNormalReductionPercentage) return;
         int chance = rand.nextInt(15);
         int caveSize = 0;
         if (genCaves == 1 || genCaves == 0) {
@@ -252,8 +245,7 @@ public class MysteriumPatchesFixesCave {
                                 int x = 1;
                                 int largerLargeCaves = 30;
                                 int y1 = 15;
-                                if (largeCaveRNG.nextInt(10) == 0)
-                                    x += 1 + largeCaveRNG.nextInt(3);
+                                if (largeCaveRNG.nextInt(10) == 0) x += 1 + largeCaveRNG.nextInt(3);
                                 for (int curviness = 0; curviness < x; curviness++) {
                                     int z = generateLargeCave(chunkX, chunkZ, x);
                                     largerLargeCaves = Math.min(largerLargeCaves, z);
@@ -287,12 +279,10 @@ public class MysteriumPatchesFixesCave {
                         }
                         if (caveRNG.nextBoolean()) {
                             var33 += caveRNG.nextFloat();
-                            if (caveRNG.nextBoolean())
-                                var33 /= 2.0F;
+                            if (caveRNG.nextBoolean()) var33 /= 2.0F;
                         }
                         if (caveRNG.nextBoolean()) {
-                            if (caveRNG.nextBoolean())
-                                var35 /= 2.0F;
+                            if (caveRNG.nextBoolean()) var35 /= 2.0F;
                             if (rand.nextBoolean()) {
                                 var35 += rand.nextFloat() * var35;
                             } else {
@@ -309,14 +299,12 @@ public class MysteriumPatchesFixesCave {
                     }
                     if (genNormalCaves) {
                         int var38 = caveSize;
-                        if (caveSize >= 10)
-                            if (var33 > 1.5F) {
-                                var38 = caveSize / 2 + 1;
-                            } else if (var33 > 1.25F) {
-                                var38 = caveSize * 3 / 4 + 1;
-                            }
-                        if (genCaves == 5 && var38 > 2)
-                            var38 = var38 / 4 + 2;
+                        if (caveSize >= 10) if (var33 > 1.5F) {
+                            var38 = caveSize / 2 + 1;
+                        } else if (var33 > 1.25F) {
+                            var38 = caveSize * 3 / 4 + 1;
+                        }
+                        if (genCaves == 5 && var38 > 2) var38 = var38 / 4 + 2;
                         Random r = new Random();
                         r.setSeed(worldObj.getSeed());
                         if (r.nextInt(100) < WGConfig.giantCaveChance) {
@@ -330,24 +318,21 @@ public class MysteriumPatchesFixesCave {
                         if (caveSize < 4) {
                             if (var36) {
                                 int var38 = rand.nextInt(rand.nextInt(caveSize + 3) + 1);
-                                if (var38 > 2)
-                                    var38 = 2;
+                                if (var38 > 2) var38 = 2;
                                 for (int length = 0; length < var38; length++) {
                                     int width = Math.max(1, 1 + WGConfig.widthAdditionNormal);
                                     if (WGConfig.hardLimitsEnabled) {
                                         width = Math.min(width, WGConfig.widthMaxNormal);
                                         width = Math.max(width, WGConfig.widthMinNormal);
                                     }
-                                    if (rand.nextInt(4) == 0)
-                                        width += rand.nextInt(4);
+                                    if (rand.nextInt(4) == 0) width += rand.nextInt(4);
                                     for (int LL = 0; LL < width; LL++)
                                         generateSingleCave(blockZ, 3, type, var35);
                                 }
                             }
                             if (seaLevelCaves) {
                                 int var38 = rand.nextInt(caveSize * 2 + 1);
-                                if (var38 > caveSize)
-                                    var38 = caveSize;
+                                if (var38 > caveSize) var38 = caveSize;
                                 int length = 23 - var38 * 5;
                                 if (WGConfig.hardLimitsEnabled) {
                                     var38 = Math.min(var38, WGConfig.widthMaxNormal);
@@ -383,15 +368,13 @@ public class MysteriumPatchesFixesCave {
                 }
             } else if (flag <= 65 && blockX && (genCaves == 1 || (genCaves == 3 && !isGiantCaveRegion(chunkX, chunkZ)))) {
                 int blockZ = validCaveClusterLocation(chunkX, chunkZ, true, true);
-                if (blockZ > 0)
-                    generateCaveCluster(chunkX, chunkZ, (genCaves == 3) ? 1 : blockZ);
+                if (blockZ > 0) generateCaveCluster(chunkX, chunkZ, (genCaves == 3) ? 1 : blockZ);
             }
         }
         if (chance <= 1 && flag <= 40) {
             if (chance == 1) {
                 caveSize = rand.nextInt(rand.nextInt(rand.nextInt(40) + 1) + 1) / 5;
-                if (caveSize > 3)
-                    caveSize /= 2;
+                if (caveSize > 3) caveSize /= 2;
             }
             if (caveSize > 0) {
                 int type, var28 = chunkX * 16;
@@ -410,14 +393,12 @@ public class MysteriumPatchesFixesCave {
                         break;
                 }
                 if (caveSize > 0) {
-                    if (caveSize > 9)
-                        caveSize = 9;
+                    if (caveSize > 9) caveSize = 9;
                     int range = 50 - caveSize * 5;
                     chance = 50 + chance * 10;
                     for (int i = 0; i < caveSize; i++) {
                         int y = rand.nextInt(range) + chance + i * 5;
-                        if (y < 80 || type < 4)
-                            generateSingleCave(var28, y, blockZ, 0.1F);
+                        if (y < 80 || type < 4) generateSingleCave(var28, y, blockZ, 0.1F);
                     }
                 }
             }
@@ -436,12 +417,10 @@ public class MysteriumPatchesFixesCave {
                         int c = caveRNG.nextInt(caveRNG.nextInt(caveRNG.nextInt(40) + 1) + 1);
                         if (x2z2 <= 5) {
                             caves += c;
-                            if (caves > 12)
-                                return 0;
+                            if (caves > 12) return 0;
                         }
                         caves2 += c;
-                        if (caves2 > 6)
-                            flag = (caves2 > 12) ? 1 : 2;
+                        if (caves2 > 6) flag = (caves2 > 12) ? 1 : 2;
                     }
                 }
             }
@@ -475,24 +454,18 @@ public class MysteriumPatchesFixesCave {
                         }
                         if (x2z2 <= 4) {
                             caveCountCenter += caves;
-                            if (caveCountCenter > 8)
-                                return -10.0F;
+                            if (caveCountCenter > 8) return -10.0F;
                         }
                     }
                 }
             }
         }
-        if (caveCountCenter < 3)
-            return -10.0F;
+        if (caveCountCenter < 3) return -10.0F;
         direction = 0;
-        if (caveCountEast > 0)
-            direction++;
-        if (caveCountSouth > 0)
-            direction += 2;
-        if (caveCountWest > 0)
-            direction += 4;
-        if (caveCountNorth > 0)
-            direction += 8;
+        if (caveCountEast > 0) direction++;
+        if (caveCountSouth > 0) direction += 2;
+        if (caveCountWest > 0) direction += 4;
+        if (caveCountNorth > 0) direction += 8;
         switch (direction) {
             case 0:
                 return largeCaveRNG.nextFloat() * 6.2831855F;
@@ -607,8 +580,7 @@ public class MysteriumPatchesFixesCave {
                         double var36 = comboCave ? (y + (rand.nextFloat() * 2.0F - 1.0F)) : y;
                         double var38 = (centerZ + (centerOffset + rand.nextInt(5)) * getQuadrantZ(y2 + quadrant));
                         generateRavineCave(var35, var36, var38, comboCave ? 2.0F : 1.0F);
-                        if (!comboCave)
-                            y += (rand.nextInt(3) + 3);
+                        if (!comboCave) y += (rand.nextInt(3) + 3);
                         if (linkCave && y2 == caveCount / 2)
                             generateHorizontalLinkCave((int) var35, (int) var36, (int) var38, centerX, centerZ, 4 - clusterType);
                         y2--;
@@ -642,8 +614,7 @@ public class MysteriumPatchesFixesCave {
                         } else {
                             generateVerticalCave(rand.nextLong(), var35, dirSwitch - length, 0, var37, var39, centerX, centerZ, comboCave ? 24 : 16);
                         }
-                        if (!comboCave)
-                            y += (rand.nextInt(4) + 3);
+                        if (!comboCave) y += (rand.nextInt(4) + 3);
                         if (linkCave && y2 == caveCount / 2)
                             generateHorizontalLinkCave(centerX, rand.nextInt(10) + 10, centerZ, centerX, centerZ, 4 - clusterType);
                         y2--;
@@ -677,8 +648,7 @@ public class MysteriumPatchesFixesCave {
                             int z2 = getOffsetZ(z1, y2, offset);
                             int direction2 = y2 + dirSwitch;
                             int length2 = length / 3 + rand.nextInt(length / 3);
-                            if ((direction2 & 0x1) == 1)
-                                length2 -= offset / 4;
+                            if ((direction2 & 0x1) == 1) length2 -= offset / 4;
                             generateMazeCaveSegment(x2, i, z2, direction2, length2, height);
                             if (linkCave && d == 0) {
                                 linkCave = false;
@@ -692,8 +662,7 @@ public class MysteriumPatchesFixesCave {
                                 z2 = getOffsetZ(z1, y2, offset);
                                 direction2 += 4;
                                 length2 = length / 3 + rand.nextInt(length / 3);
-                                if ((direction2 & 0x1) == 1)
-                                    length2 -= offset / 4;
+                                if ((direction2 & 0x1) == 1) length2 -= offset / 4;
                                 generateMazeCaveSegment(x2, i, z2, direction2, length2, height);
                             }
                         }
@@ -717,13 +686,12 @@ public class MysteriumPatchesFixesCave {
                 z = centerZ + (centerOffset + rand.nextInt(5)) * getQuadrantZ(quadrant);
                 generateVerticalCave(rand.nextLong(), x, y2, 100, z, rand.nextFloat(), centerX, centerZ, 24);
                 quadrant++;
-                if (mazeIndex1 > 0 && mazeIndex2 > 0)
-                    for (i = rand.nextInt(3) + 4; i > 0; i--) {
-                        x = centerX + (centerOffset + 8 + rand.nextInt(16)) * getQuadrantX(quadrant);
-                        z = centerZ + (centerOffset + 8 + rand.nextInt(16)) * getQuadrantZ(quadrant);
-                        generateDirectionalCave(x, 3, z, centerX, centerZ, 0);
-                        quadrant++;
-                    }
+                if (mazeIndex1 > 0 && mazeIndex2 > 0) for (i = rand.nextInt(3) + 4; i > 0; i--) {
+                    x = centerX + (centerOffset + 8 + rand.nextInt(16)) * getQuadrantX(quadrant);
+                    z = centerZ + (centerOffset + 8 + rand.nextInt(16)) * getQuadrantZ(quadrant);
+                    generateDirectionalCave(x, 3, z, centerX, centerZ, 0);
+                    quadrant++;
+                }
             } else if (caveIndex == mazeIndex2) {
                 caveType = 3;
             } else {
@@ -747,13 +715,10 @@ public class MysteriumPatchesFixesCave {
                         if (caveRNG.nextInt(15) == 0) {
                             int chunkModX = caveRNG.nextInt(caveRNG.nextInt(caveRNG.nextInt(40) + 1) + 1);
                             if (chunkModX > 0) {
-                                if (!firstCheck || z <= 5)
-                                    return 0;
+                                if (!firstCheck || z <= 5) return 0;
                                 count += chunkModX;
-                                if (type == 3)
-                                    type = 2;
-                                if (type == 2 && count > 10)
-                                    type = 1;
+                                if (type == 3) type = 2;
+                                if (type == 2 && count > 10) type = 1;
                             }
                         }
                     }
@@ -768,13 +733,10 @@ public class MysteriumPatchesFixesCave {
                             ravine = true;
                         }
                         if (ravine || caveRNG.nextInt(30) < 11) {
-                            if (!firstCheck || z <= 5)
-                                return 0;
+                            if (!firstCheck || z <= 5) return 0;
                             count += 6;
-                            if (type == 3)
-                                type = 2;
-                            if (type == 2 && count > 10)
-                                type = 1;
+                            if (type == 3) type = 2;
+                            if (type == 2 && count > 10) type = 1;
                         }
                     }
                     x2z2 += mineshaftOffsetX;
@@ -785,21 +747,17 @@ public class MysteriumPatchesFixesCave {
                         if (chunkModX <= 2 && chunkModZ <= 2) {
                             caveRNG.setSeed(((x2z2 / 7) * 341873128712L + (chunkOffZ / 7) * 132897987541L) * seedMultiplier);
                             if (chunkModX == caveRNG.nextInt(3) && chunkModZ == caveRNG.nextInt(3)) {
-                                if (!firstCheck || z <= 5)
-                                    return 0;
+                                if (!firstCheck || z <= 5) return 0;
                                 count += 6;
-                                if (type == 3)
-                                    type = 2;
-                                if (type == 2 && count > 10)
-                                    type = 1;
+                                if (type == 3) type = 2;
+                                if (type == 2 && count > 10) type = 1;
                             }
                         }
                     }
                 }
             }
         }
-        if (!includeCaves)
-            return 1;
+        if (!includeCaves) return 1;
         if (type > 1 && firstCheck) {
             radius2 = type * type + 1;
             for (int x = -type; x <= type; x++) {
@@ -840,14 +798,12 @@ public class MysteriumPatchesFixesCave {
                             y += 12.0D;
                         } else if (y > 62.5D) {
                             y -= 47.0D;
-                            if (y > 62.5D)
-                                y -= 20.0D;
+                            if (y > 62.5D) y -= 20.0D;
                         }
                     }
                 }
                 if (widthMultiplier < 1.0F) {
-                    if (j > 8.5F)
-                        j *= widthMultiplier;
+                    if (j > 8.5F) j *= widthMultiplier;
                 } else {
                     j *= widthMultiplier;
                     if (startDirection == 0 && j > 10.0F && j < 17.0F) {
@@ -864,8 +820,7 @@ public class MysteriumPatchesFixesCave {
                             y += 12.0D;
                         } else if (y > 62.5D) {
                             y -= 47.0D;
-                            if (y > 62.5D)
-                                y -= 20.0D;
+                            if (y > 62.5D) y -= 20.0D;
                         }
                         if (y < 9.5D) {
                             y += (j / 8.0F + 0.5F);
@@ -888,8 +843,7 @@ public class MysteriumPatchesFixesCave {
                     width *= rand.nextFloat() * rand.nextFloat() * 4.0F + 1.0F;
                     if (largerLargeCaves) {
                         if (widthMultiplier < 1.0F) {
-                            if (width > 7.5F)
-                                width *= widthMultiplier;
+                            if (width > 7.5F) width *= widthMultiplier;
                         } else if (width < 7.5F) {
                             width *= widthMultiplier;
                         }
@@ -908,8 +862,7 @@ public class MysteriumPatchesFixesCave {
     }
 
     private static void generateColossalCaveSystem(int centerX, int centerZ) {
-        if (rand.nextInt(100) + 1 <= WGConfig.caveColossalReductionPercentage)
-            return;
+        if (rand.nextInt(100) + 1 <= WGConfig.caveColossalReductionPercentage) return;
         centerX *= 16;
         centerZ *= 16;
         int caveType = rand.nextInt(5);
@@ -987,12 +940,10 @@ public class MysteriumPatchesFixesCave {
             } else {
                 y += (71 + rand.nextInt(20));
             }
-            if (caveCounter % 7 == 0)
-                generateCircularRoom(x, y, z, rand.nextFloat() * 5.0F + 2.0F);
+            if (caveCounter % 7 == 0) generateCircularRoom(x, y, z, rand.nextFloat() * 5.0F + 2.0F);
             float var14 = rand.nextFloat() * 2.0F + rand.nextFloat();
             if (caveCounter % 19 == 0) {
-                if (var14 < 1.5F)
-                    var14 += (var14 + 3.0F) / 3.0F;
+                if (var14 < 1.5F) var14 += (var14 + 3.0F) / 3.0F;
                 var14++;
             }
             generateCCCave(rand.nextLong(), x, y, z, var14, rand.nextFloat() * 6.2831855F, (rand.nextFloat() - 0.5F) / 4.0F, 0, (caveCounter % 5 == 0), (centerX + 8), (centerZ + 8));
@@ -1019,10 +970,8 @@ public class MysteriumPatchesFixesCave {
             double var35 = x - chunkCenterX;
             double var37 = z - chunkCenterZ;
             double var39 = (116 - pos) + radiusW;
-            if (var35 * var35 + var37 * var37 > var39 * var39)
-                return;
-            if (caveRNG.nextInt(4) == 0)
-                radiusW = radiusW / 5.0D + 0.75D;
+            if (var35 * var35 + var37 * var37 > var39 * var39) return;
+            if (caveRNG.nextInt(4) == 0) radiusW = radiusW / 5.0D + 0.75D;
             float var33 = cosine(directionY);
             x += (cosine(directionXZ) * var33);
             y += sine(directionY);
@@ -1034,18 +983,17 @@ public class MysteriumPatchesFixesCave {
             }
             float devX = (float) (x - centerX);
             float devZ = (float) (z - centerZ);
-            if (devX * devX + devZ * devZ > 576.0F)
-                if (devZ >= 0.0F) {
-                    if (devX >= 0.0F) {
-                        directionXZ = (directionXZ * 31.0F - 2.35619F) / 32.0F;
-                    } else {
-                        directionXZ = (directionXZ * 31.0F - 0.7853982F) / 32.0F;
-                    }
-                } else if (devX >= 0.0F) {
-                    directionXZ = (directionXZ * 31.0F + 2.35619F) / 32.0F;
+            if (devX * devX + devZ * devZ > 576.0F) if (devZ >= 0.0F) {
+                if (devX >= 0.0F) {
+                    directionXZ = (directionXZ * 31.0F - 2.35619F) / 32.0F;
                 } else {
-                    directionXZ = (directionXZ * 31.0F + 0.7853982F) / 32.0F;
+                    directionXZ = (directionXZ * 31.0F - 0.7853982F) / 32.0F;
                 }
+            } else if (devX >= 0.0F) {
+                directionXZ = (directionXZ * 31.0F + 2.35619F) / 32.0F;
+            } else {
+                directionXZ = (directionXZ * 31.0F + 0.7853982F) / 32.0F;
+            }
             directionY += var24 * 0.1F;
             directionXZ += var23 * 0.1F;
             var24 *= 0.9F;
@@ -1065,21 +1013,17 @@ public class MysteriumPatchesFixesCave {
         int centerZ = chunkZ * 16 + 8;
         if (type == 2) {
             if ((chunkX + caveOffsetX - 15 & 0x20) == (chunkZ + caveOffsetZ - 15 & 0x20)) {
-                if (rand.nextInt(100) + 1 <= WGConfig.caveCircularRoomReductionPercentage)
-                    return;
+                if (rand.nextInt(100) + 1 <= WGConfig.caveCircularRoomReductionPercentage) return;
                 generateCircularRoomCaveSystem(centerX, centerZ);
             } else {
-                if (rand.nextInt(100) + 1 <= WGConfig.caveRavineCaveReductionPercentage)
-                    return;
+                if (rand.nextInt(100) + 1 <= WGConfig.caveRavineCaveReductionPercentage) return;
                 generateRavineCaveSystem(centerX, centerZ);
             }
         } else if (type == 6) {
-            if (rand.nextInt(100) + 1 <= WGConfig.caveVerticalReductionPercentage)
-                return;
+            if (rand.nextInt(100) + 1 <= WGConfig.caveVerticalReductionPercentage) return;
             generateVerticalCaveSystem(centerX, centerZ);
         } else {
-            if (rand.nextInt(100) + 1 <= WGConfig.caveMazeReductionPercentage)
-                return;
+            if (rand.nextInt(100) + 1 <= WGConfig.caveMazeReductionPercentage) return;
             generateMazeCaveSystem(centerX, centerZ);
         }
     }
@@ -1116,12 +1060,10 @@ public class MysteriumPatchesFixesCave {
             if ((i & 0x7) == centerCave) {
                 x = centerX + (rand.nextInt(6) + 3) * (rand.nextInt(2) * 2 - 1);
                 double var16 = y + (rand.nextInt(9) - 4);
-                if (var16 < 0.0D)
-                    var16 += 4.0D;
+                if (var16 < 0.0D) var16 += 4.0D;
                 z = centerZ + (rand.nextInt(6) + 3) * (rand.nextInt(2) * 2 - 1);
                 generateCircularRoom(x, y, z, rand.nextFloat() * rand.nextFloat() * 9.0F + 3.0F);
-                if (i == centerCave)
-                    generateVerticalCave(x, 3, 32, z);
+                if (i == centerCave) generateVerticalCave(x, 3, 32, z);
             }
         }
     }
@@ -1154,8 +1096,7 @@ public class MysteriumPatchesFixesCave {
             if (i % 7 == centerCave) {
                 x = centerX + (rand.nextInt(6) + 3) * (rand.nextInt(2) * 2 - 1);
                 double y2 = y + (rand.nextInt(5) - 2);
-                if (y2 < 0.0D)
-                    y2 += 4.0D;
+                if (y2 < 0.0D) y2 += 4.0D;
                 z = centerZ + (rand.nextInt(6) + 3) * (rand.nextInt(2) * 2 - 1);
                 int length = rand.nextInt(17) + 26;
                 int segmentLength = length + rand.nextInt(2) * 8;
@@ -1253,8 +1194,7 @@ public class MysteriumPatchesFixesCave {
             int length, caveX = centerX + (rand.nextInt(7) + 4) * getQuadrantX(quadrant);
             int caveZ = centerZ + (rand.nextInt(7) + 4) * getQuadrantZ(quadrant);
             int var31 = rand.nextInt(2);
-            if (change && var31 == oldDirection)
-                var31 = 1 - var31;
+            if (change && var31 == oldDirection) var31 = 1 - var31;
             change = (var31 == oldDirection);
             oldDirection = var31;
             var31 += rand.nextInt(4) * 2;
@@ -1275,8 +1215,7 @@ public class MysteriumPatchesFixesCave {
                     int z = getOffsetZ(caveZ, var31, offset);
                     int direction2 = var31 + dirSwitch;
                     int length2 = length / 3 + rand.nextInt(length / 3);
-                    if ((direction2 & 0x1) == 1)
-                        length2 -= offset / 4;
+                    if ((direction2 & 0x1) == 1) length2 -= offset / 4;
                     generateMazeCaveSegment(x, caveY, z, direction2, length2, height);
                     int index = caveY + (direction2 / 2 & 0x3);
                     if (index != horizCave1 && index != horizCave2) {
@@ -1308,8 +1247,7 @@ public class MysteriumPatchesFixesCave {
                         z = getOffsetZ(caveZ, var31, offset);
                         direction2 += 4;
                         length2 = length / 3 + rand.nextInt(length / 3);
-                        if ((direction2 & 0x1) == 1)
-                            length2 -= offset / 4;
+                        if ((direction2 & 0x1) == 1) length2 -= offset / 4;
                         generateMazeCaveSegment(x, caveY, z, direction2, length2, height);
                     }
                 }
@@ -1332,8 +1270,7 @@ public class MysteriumPatchesFixesCave {
     }
 
     private static void generateRegionalCaves(int chunkX, int chunkZ) {
-        if (rand.nextInt(100) + 1 <= WGConfig.caveRegionalReductionPercentage)
-            return;
+        if (rand.nextInt(100) + 1 <= WGConfig.caveRegionalReductionPercentage) return;
         Random r = new Random();
         r.setSeed(worldObj.getSeed());
         if (isGiantCaveRegion(chunkX, chunkZ) || r.nextInt(100) < WGConfig.giantCaveChance) {
@@ -1343,8 +1280,7 @@ public class MysteriumPatchesFixesCave {
                 int chunkOffZ = chunkX;
                 int div1;
                 for (div1 = chunkZ; validRegionalCaveLocation(chunkOffZ - 1, div1, 4096); chunkOffZ--) ;
-                while (validRegionalCaveLocation(chunkOffZ, div1 - 1, 4096))
-                    div1--;
+                while (validRegionalCaveLocation(chunkOffZ, div1 - 1, 4096)) div1--;
                 int div2 = 0;
                 float startY = 0.0F;
                 int verticalCave = 0;
@@ -1375,8 +1311,7 @@ public class MysteriumPatchesFixesCave {
                     div2 = 64 + rand.nextInt(16);
                     generateHorizontalCave(rand.nextLong(), chunkOffZ, y, div1, rand.nextFloat() + 1.0F, var25 + 3.1415927F, (rand.nextFloat() - 0.5F) / 4.0F, div2, div2 + 32 + rand.nextInt(8), 1);
                 }
-                if (rand.nextInt((chunkOffX > 0) ? 12 : 6) == 0)
-                    generateVerticalCave(chunkOffZ, y, 100, div1);
+                if (rand.nextInt((chunkOffX > 0) ? 12 : 6) == 0) generateVerticalCave(chunkOffZ, y, 100, div1);
             }
         } else {
             int chunkOffX = chunkX + caveOffsetX;
@@ -1405,8 +1340,7 @@ public class MysteriumPatchesFixesCave {
                 for (int i = 0; i < segments; i++) {
                     float segmentDirection = direction1;
                     direction1 += 6.2831855F / segments;
-                    if (segments > 2)
-                        segmentDirection += (rand.nextFloat() - 0.5F) * 2.094395F / segments;
+                    if (segments > 2) segmentDirection += (rand.nextFloat() - 0.5F) * 2.094395F / segments;
                     if (i > 0 && (var23 || segments > 2)) {
                         width = Math.max(0.6F, rand.nextFloat() * rand.nextFloat() * (rand.nextInt(2) + 1) + 0.5F + WGConfig.widthAdditionRegional);
                         if (WGConfig.hardLimitsEnabled) {
@@ -1420,8 +1354,7 @@ public class MysteriumPatchesFixesCave {
                     generateVerticalCave(var24, var22, 100, z);
                     segments++;
                 }
-                if (segments > 2)
-                    generateCircularRoom(var24, var26, z, (rand.nextFloat() + 0.5F) * segments + 1.0F);
+                if (segments > 2) generateCircularRoom(var24, var26, z, (rand.nextFloat() + 0.5F) * segments + 1.0F);
                 if (!var23 && validCaveClusterLocation(chunkX, chunkZ, false, true) > 0)
                     generateCaveCluster(chunkX, chunkZ, 1);
             }
@@ -1435,8 +1368,7 @@ public class MysteriumPatchesFixesCave {
         int branchPoint = -999;
         if (pos <= 0) {
             length = 112 - caveRNG.nextInt(28);
-            if (width >= 1.0F)
-                branchPoint = caveRNG.nextInt(length / 2) + length / 4;
+            if (width >= 1.0F) branchPoint = caveRNG.nextInt(length / 2) + length / 4;
         }
         for (boolean isVerticalCave = (caveRNG.nextInt(6) == 0); pos < length; pos++) {
             if (pos == branchPoint) {
@@ -1455,10 +1387,8 @@ public class MysteriumPatchesFixesCave {
             double var35 = x - chunkCenterX;
             double var37 = z - chunkCenterZ;
             double var39 = (length - pos + 18) + radiusW;
-            if (var35 * var35 + var37 * var37 > var39 * var39)
-                return;
-            if (caveRNG.nextInt(4) == 0)
-                radiusW = radiusW / 5.0D + 0.75D;
+            if (var35 * var35 + var37 * var37 > var39 * var39) return;
+            if (caveRNG.nextInt(4) == 0) radiusW = radiusW / 5.0D + 0.75D;
             float var33 = cosine(directionY);
             x += (cosine(directionXZ) * var33);
             y += sine(directionY);
@@ -1523,8 +1453,7 @@ public class MysteriumPatchesFixesCave {
                 width = Math.min(width, WGConfig.widthMaxColossal);
                 width = Math.max(width, WGConfig.widthMinColossal);
             }
-            if (largeCaveRNG.nextBoolean())
-                width *= length / 224.0F;
+            if (largeCaveRNG.nextBoolean()) width *= length / 224.0F;
         } else {
             length = Math.min(112 + largeCaveRNG.nextInt(largeCaveRNG.nextInt(336) + 1), 336);
             caveRNG.setSeed((((chunkX + caveOffsetX + 12) / 16) * 341873128712L + ((chunkZ + caveOffsetZ + 12) / 16) * 132897987541L) * seedMultiplier);
@@ -1536,8 +1465,7 @@ public class MysteriumPatchesFixesCave {
             }
             if (largeCaveRNG.nextBoolean()) {
                 float x = largeCaveRNG.nextFloat() * length / 96.0F + (672 - length) / 672.0F;
-                if (x > 1.0F)
-                    width *= x;
+                if (x > 1.0F) width *= x;
             } else {
                 float x = largeCaveRNG.nextFloat();
                 width *= x * x * 3.0F + 1.0F;
@@ -1546,8 +1474,7 @@ public class MysteriumPatchesFixesCave {
         double x1 = (chunkX * 16 + 8);
         double y = (largeCaveRNG.nextInt(16) + 15);
         double z = (chunkZ * 16 + 8);
-        if (y < 20.5D)
-            y += ((width + 0.5F) / 4.0F);
+        if (y < 20.5D) y += ((width + 0.5F) / 4.0F);
         int branchPoint = largeCaveRNG.nextInt(length / 4) + length / 2;
         float direction = largeCaveRNG.nextFloat() * 6.2831855F;
         float curviness = length / 3360.0F + 0.05F;
@@ -1567,8 +1494,7 @@ public class MysteriumPatchesFixesCave {
             generateLargeCave2(largeCaveRNG.nextLong(), x1, y, z, width, direction, (largeCaveRNG.nextFloat() - 0.5F) / 4.0F, 0, length, branchPoint, curviness, false, true);
         }
         int ret = (int) (y + 0.5D);
-        if (type == 1)
-            ret += (int) (direction * 1024.0F) * 256;
+        if (type == 1) ret += (int) (direction * 1024.0F) * 256;
         return ret;
     }
 
@@ -1580,8 +1506,7 @@ public class MysteriumPatchesFixesCave {
         for (boolean isVerticalCave = (vertVar && caveRNG.nextInt(6) == 0 && width < 20.0F); pos < length; pos++) {
             if (pos == branchPoint) {
                 seed = caveRNG.nextLong();
-                if (giantCaveBranch)
-                    width *= 1.5F;
+                if (giantCaveBranch) width *= 1.5F;
                 width = (caveRNG.nextFloat() * width + width) / 3.0F;
                 directionY /= 3.0F;
                 generateLargeCave2(caveRNG.nextLong(), x, y, z, (caveRNG.nextFloat() * width + width) / 3.0F, directionXZ - 1.5707964F, directionY, pos, length, 0, curviness, false, true);
@@ -1592,8 +1517,7 @@ public class MysteriumPatchesFixesCave {
             double var35 = x - chunkCenterX;
             double var37 = z - chunkCenterZ;
             double var39 = (length - pos + 18) + radiusW;
-            if (var35 * var35 + var37 * var37 > var39 * var39)
-                return;
+            if (var35 * var35 + var37 * var37 > var39 * var39) return;
             double ratio = (1.0F - (float) radiusW / 100.0F);
             radiusW += minRadius;
             double radiusH = radiusW * ratio;
@@ -1610,12 +1534,11 @@ public class MysteriumPatchesFixesCave {
             } else {
                 directionY *= 0.7F;
             }
-            if (!vertVar)
-                if (y > 45.0D) {
-                    var24 = -0.5F;
-                } else if (y < 4.0D) {
-                    var24 = 0.5F;
-                }
+            if (!vertVar) if (y > 45.0D) {
+                var24 = -0.5F;
+            } else if (y < 4.0D) {
+                var24 = 0.5F;
+            }
             directionY += var24 * 0.1F;
             directionXZ += var23 * curviness;
             var24 *= 0.9F;
@@ -1645,14 +1568,13 @@ public class MysteriumPatchesFixesCave {
         } else {
             curviness = (caveType != 3 && caveRNG.nextInt(4) != 0) ? 0.025F : 0.05F;
         }
-        if (caveType == 1)
-            if (pos == 0) {
-                branchPoint = Math.min(length * 2 / 3 + caveRNG.nextInt(length / 11), 120);
-            } else {
-                branchPoint = pos;
-                pos = 0;
-                branchFlag = 0;
-            }
+        if (caveType == 1) if (pos == 0) {
+            branchPoint = Math.min(length * 2 / 3 + caveRNG.nextInt(length / 11), 120);
+        } else {
+            branchPoint = pos;
+            pos = 0;
+            branchFlag = 0;
+        }
         for (boolean isVerticalCave = (flag && caveRNG.nextInt(6) == 0); pos < length; pos++) {
             if (pos == branchPoint) {
                 seed = caveRNG.nextLong();
@@ -1666,8 +1588,7 @@ public class MysteriumPatchesFixesCave {
             double var35 = x - chunkCenterX;
             double var37 = z - chunkCenterZ;
             double var39 = (length - pos + 18) + width;
-            if (var35 * var35 + var37 * var37 > var39 * var39)
-                return;
+            if (var35 * var35 + var37 * var37 > var39 * var39) return;
             double radiusW = 1.25D;
             float var33 = cosine(directionY);
             x += (cosine(directionXZ) * var33);
@@ -1695,10 +1616,8 @@ public class MysteriumPatchesFixesCave {
                     }
                 }
             } else {
-                if (pos < length - 3)
-                    radiusW += 0.25D;
-                if (pos < length - 6)
-                    radiusW += (width * caveRNG.nextFloat());
+                if (pos < length - 3) radiusW += 0.25D;
+                if (pos < length - 6) radiusW += (width * caveRNG.nextFloat());
                 if (caveType == 2) {
                     float radiusW_2 = (float) (y - startY);
                     if (radiusW_2 > 5.0F) {
@@ -1718,8 +1637,7 @@ public class MysteriumPatchesFixesCave {
             directionY += var24 * 0.1F;
             var24 *= 0.9F;
             var24 += (caveRNG.nextFloat() - caveRNG.nextFloat()) * caveRNG.nextFloat() * 2.0F;
-            if (caveRNG.nextInt(4) == 0)
-                radiusW = 1.25D;
+            if (caveRNG.nextInt(4) == 0) radiusW = 1.25D;
             directionXZ += var23 * curviness;
             var23 *= 0.75F;
             var23 += (caveRNG.nextFloat() - caveRNG.nextFloat()) * caveRNG.nextFloat() * 4.0F;
@@ -1844,8 +1762,7 @@ public class MysteriumPatchesFixesCave {
             double radiusW, var35 = x - chunkCenterX;
             double var37 = z - chunkCenterZ;
             double var39 = (length - i + 18) + width;
-            if (var35 * var35 + var37 * var37 > var39 * var39)
-                return;
+            if (var35 * var35 + var37 * var37 > var39 * var39) return;
             if (width >= 0.0F) {
                 radiusW = (1.5F + sine(i * 1.5707964F / length) * width);
             } else {
@@ -1856,29 +1773,24 @@ public class MysteriumPatchesFixesCave {
             if (maxDeviation == 1) {
                 float radiusW_2 = (float) (x - centerX);
                 float devZ = (float) (z - centerZ);
-                if (radiusW_2 > 1.0F)
-                    x--;
-                if (radiusW_2 < -1.0F)
-                    x++;
-                if (devZ > 1.0F)
-                    z--;
-                if (devZ < -1.0F)
-                    z++;
+                if (radiusW_2 > 1.0F) x--;
+                if (radiusW_2 < -1.0F) x++;
+                if (devZ > 1.0F) z--;
+                if (devZ < -1.0F) z++;
             } else if (maxDeviation > 0) {
                 float radiusW_2 = (float) (x - centerX);
                 float devZ = (float) (z - centerZ);
-                if (radiusW_2 * radiusW_2 + devZ * devZ > maxDeviation)
-                    if (devZ >= 0.0F) {
-                        if (radiusW_2 >= 0.0F) {
-                            directionXZ = (directionXZ * 3.0F - 2.35619F) / 4.0F;
-                        } else {
-                            directionXZ = (directionXZ * 3.0F - 0.7853982F) / 4.0F;
-                        }
-                    } else if (radiusW_2 >= 0.0F) {
-                        directionXZ = (directionXZ * 3.0F + 2.35619F) / 4.0F;
+                if (radiusW_2 * radiusW_2 + devZ * devZ > maxDeviation) if (devZ >= 0.0F) {
+                    if (radiusW_2 >= 0.0F) {
+                        directionXZ = (directionXZ * 3.0F - 2.35619F) / 4.0F;
                     } else {
-                        directionXZ = (directionXZ * 3.0F + 0.7853982F) / 4.0F;
+                        directionXZ = (directionXZ * 3.0F - 0.7853982F) / 4.0F;
                     }
+                } else if (radiusW_2 >= 0.0F) {
+                    directionXZ = (directionXZ * 3.0F + 2.35619F) / 4.0F;
+                } else {
+                    directionXZ = (directionXZ * 3.0F + 0.7853982F) / 4.0F;
+                }
             }
             directionXZ += var23 * 0.15F;
             var23 *= 0.75F;
@@ -1892,8 +1804,7 @@ public class MysteriumPatchesFixesCave {
                 } else {
                     y = (y1 + i);
                 }
-                if (i == length - 1 && width >= 0.5F)
-                    radiusH = (width + 1.0F);
+                if (i == length - 1 && width >= 0.5F) radiusH = (width + 1.0F);
                 generateCaveSegment(x, y, z, radiusW, radiusH, noiseMultiplier, 1);
             }
         }
@@ -1941,13 +1852,10 @@ public class MysteriumPatchesFixesCave {
             double var34 = x - chunkCenterX;
             double var36 = z - chunkCenterZ;
             double var38 = (length - pos + 18);
-            if (var34 * var34 + var36 * var36 > var38 * var38)
-                return;
+            if (var34 * var34 + var36 * var36 > var38 * var38) return;
             double radiusW = width;
-            if (pos < length - end)
-                radiusW += (caveRNG.nextFloat() * 0.5F);
-            if (pos < length - end * 2)
-                radiusW += width;
+            if (pos < length - end) radiusW += (caveRNG.nextFloat() * 0.5F);
+            if (pos < length - end * 2) radiusW += width;
             double radiusH = radiusW * heightRatio;
             radiusW *= (caveRNG.nextFloat() * 0.25F + 0.75F);
             radiusH *= (caveRNG.nextFloat() * 0.25F + 0.75F);
@@ -1976,18 +1884,12 @@ public class MysteriumPatchesFixesCave {
                 int var37 = (int) (y + radiusH) + 1;
                 int var57 = MathHelper.floor_double(z - radiusW) - chunkZ_16 - 1;
                 int var39 = MathHelper.floor_double(z + radiusW) - chunkZ_16 + 1;
-                if (var56 < 0)
-                    var56 = 0;
-                if (var35 > 16)
-                    var35 = 16;
-                if (var55 < 0)
-                    var55 = 0;
-                if (var37 > 200)
-                    var37 = 200;
-                if (var57 < 0)
-                    var57 = 0;
-                if (var39 > 16)
-                    var39 = 16;
+                if (var56 < 0) var56 = 0;
+                if (var35 > 16) var35 = 16;
+                if (var55 < 0) var55 = 0;
+                if (var37 > 200) var37 = 200;
+                if (var57 < 0) var57 = 0;
+                if (var39 > 16) var39 = 16;
                 for (int var41 = var56; var41 < var35; var41++) {
                     double var59 = ((var41 + chunkX_16) + 0.5D - x) / radiusW;
                     var59 *= var59;
@@ -2020,8 +1922,7 @@ public class MysteriumPatchesFixesCave {
             double var34 = x - chunkCenterX;
             double var36 = z - chunkCenterZ;
             double var38 = (length - pos + 18);
-            if (var34 * var34 + var36 * var36 > var38 * var38)
-                return;
+            if (var34 * var34 + var36 * var36 > var38 * var38) return;
             x = getOffsetX(x, direction, 1);
             z = getOffsetZ(z, direction, 1);
             double radiusW = width + 10.0D;
@@ -2038,8 +1939,7 @@ public class MysteriumPatchesFixesCave {
 
     private static void generateRavines(int chunkX, int chunkZ, boolean flag, int genCaves) {
         if (rand.nextInt(20) == 15) {
-            if (genCaves == 3 && isGiantCaveRegion(chunkX, chunkZ))
-                return;
+            if (genCaves == 3 && isGiantCaveRegion(chunkX, chunkZ)) return;
             byte bigRavine = -1;
             boolean notNearOrigin = true;
             if (notNearOrigin) {
@@ -2051,8 +1951,7 @@ public class MysteriumPatchesFixesCave {
                     bigRavine = 1;
                 }
             }
-            if (bigRavine > 0 && genCaves == 5)
-                bigRavine = 0;
+            if (bigRavine > 0 && genCaves == 5) bigRavine = 0;
             if (bigRavine >= 0 || (flag && (rand.nextInt(30) < 11 || (!notNearOrigin && rand.nextInt(20) == 0)))) {
                 double var24 = (chunkX * 16 + 8);
                 double y = (rand.nextInt(rand.nextInt(50) + 8) + 13);
@@ -2064,43 +1963,36 @@ public class MysteriumPatchesFixesCave {
                     width = Math.min(width, WGConfig.widthMaxRavineCave);
                     width = Math.max(width, WGConfig.widthMinRavineCave);
                 }
-                if (rand.nextInt(4) == 0)
-                    width += rand.nextFloat() * ((bigRavine != 1 && width < 2.0F) ? 0.0F : 2.0F);
+                if (rand.nextInt(4) == 0) width += rand.nextFloat() * ((bigRavine != 1 && width < 2.0F) ? 0.0F : 2.0F);
                 double heightRatio = 3.0D;
                 int length = 112 - rand.nextInt(15) * 2;
                 float curviness = 0.05F;
-                if (rand.nextInt(3) == 0)
-                    if (rand.nextInt(3) == 0) {
-                        curviness = 0.1F;
-                    } else {
-                        curviness = 0.075F;
-                    }
+                if (rand.nextInt(3) == 0) if (rand.nextInt(3) == 0) {
+                    curviness = 0.1F;
+                } else {
+                    curviness = 0.075F;
+                }
                 if (bigRavine <= 0) {
                     int data = biomeList[((worldObj.getBiomeGenForCoordsBody(chunkX_16 + 8, chunkZ_16 + 8)).biomeID > 255) ? 20 : (worldObj.getBiomeGenForCoordsBody(chunkX_16 + 8, chunkZ_16 + 8)).biomeID] >> 2 & 0x3;
                     if ((rand.nextBoolean() && data == 1) || data == 2) {
                         data = rand.nextInt(2) + 1;
-                        if (y < 31.5D)
-                            y += (data * 8);
+                        if (y < 31.5D) y += (data * 8);
                         heightRatio += data;
-                        if (width > (6 - data))
-                            width /= 2.0F;
+                        if (width > (6 - data)) width /= 2.0F;
                     }
                 } else {
                     length += rand.nextInt(64) * 2;
                     if (width < 2.0F) {
                         width++;
-                        if (width < 2.0F)
-                            width++;
+                        if (width < 2.0F) width++;
                     }
                     width *= rand.nextFloat() * rand.nextFloat() * 1.5F + 1.0F;
                     if (bigRavine == 2) {
                         length += 80 + rand.nextInt(40) * 2;
                         width += rand.nextFloat() * (length / 56) + 3.0F;
                     }
-                    if (length > 336)
-                        length = 336;
-                    if (width > 18.0F)
-                        width = 18.0F;
+                    if (length > 336) length = 336;
+                    if (width > 18.0F) width = 18.0F;
                     if (y < 23.5D) {
                         y += (width / 1.5F);
                     } else if (y > 52.5D) {
@@ -2141,8 +2033,7 @@ public class MysteriumPatchesFixesCave {
             double var34 = x - chunkCenterX;
             double var36 = z - chunkCenterZ;
             double var38 = (length - pos + 18) + radiusW;
-            if (var34 * var34 + var36 * var36 > var38 * var38)
-                return;
+            if (var34 * var34 + var36 * var36 > var38 * var38) return;
             double radiusH = radiusW * heightRatio;
             if (bigRavine) {
                 if (width > 5.5F) {
@@ -2184,18 +2075,12 @@ public class MysteriumPatchesFixesCave {
                 int var37 = (int) (y + radiusH) + 1;
                 int var57 = MathHelper.floor_double(z - radiusW) - chunkZ_16 - 1;
                 int var39 = MathHelper.floor_double(z + radiusW) - chunkZ_16 + 1;
-                if (var56 < 0)
-                    var56 = 0;
-                if (var35 > 16)
-                    var35 = 16;
-                if (var55 < 0)
-                    var55 = 0;
-                if (var37 > 120)
-                    var37 = 120;
-                if (var57 < 0)
-                    var57 = 0;
-                if (var39 > 16)
-                    var39 = 16;
+                if (var56 < 0) var56 = 0;
+                if (var35 > 16) var35 = 16;
+                if (var55 < 0) var55 = 0;
+                if (var37 > 120) var37 = 120;
+                if (var57 < 0) var57 = 0;
+                if (var39 > 16) var39 = 16;
                 double noiseMultiplier = 0.33333333D / Math.max(radiusW - 0.5D, 2.5D);
                 for (int var41 = var56; var41 < var35; var41++) {
                     double var59 = ((var41 + chunkX_16) + 0.5D - x) / radiusW;
@@ -2226,18 +2111,12 @@ public class MysteriumPatchesFixesCave {
         int var38 = (int) (y + radiusH) + 1;
         int var56 = MathHelper.floor_double(z - radiusW) - chunkZ_16 - 1;
         int var40 = MathHelper.floor_double(z + radiusW) - chunkZ_16 + 1;
-        if (var55 < 0)
-            var55 = 0;
-        if (var36 > 16)
-            var36 = 16;
-        if (var57 < 0)
-            var57 = 0;
-        if (var38 > 200)
-            var38 = 200;
-        if (var56 < 0)
-            var56 = 0;
-        if (var40 > 16)
-            var40 = 16;
+        if (var55 < 0) var55 = 0;
+        if (var36 > 16) var36 = 16;
+        if (var57 < 0) var57 = 0;
+        if (var38 > 200) var38 = 200;
+        if (var56 < 0) var56 = 0;
+        if (var40 > 16) var40 = 16;
         for (int var42 = var55; var42 < var36; var42++) {
             double var59 = ((var42 + chunkX_16) + 0.5D - x) / radiusW;
             var59 *= var59;
@@ -2271,33 +2150,25 @@ public class MysteriumPatchesFixesCave {
                 for (x2 = minX; x2 <= maxX; x2++) {
                     for (int i = minZ; i <= maxZ; i++) {
                         int xyz = x2 << 12 | i << 8 | y;
-                        if (chunkData[xyz] == Blocks.water)
-                            return;
-                        if (chunkData[xyz + 1] == Blocks.water)
-                            return;
+                        if (chunkData[xyz] == Blocks.water) return;
+                        if (chunkData[xyz + 1] == Blocks.water) return;
                     }
                 }
                 for (x2 = minX; x2 <= maxX; x2++) {
                     int i = z - 2;
-                    if (i >= 0 && chunkData[x2 << 12 | i << 8 | y] == Blocks.water)
-                        return;
+                    if (i >= 0 && chunkData[x2 << 12 | i << 8 | y] == Blocks.water) return;
                     i = z + 2;
-                    if (i <= 15 && chunkData[x2 << 12 | i << 8 | y] == Blocks.water)
-                        return;
+                    if (i <= 15 && chunkData[x2 << 12 | i << 8 | y] == Blocks.water) return;
                 }
                 for (int z2 = minZ; z2 <= maxZ; z2++) {
                     x2 = x - 2;
-                    if (x2 >= 0 && chunkData[x2 << 12 | z2 << 8 | y] == Blocks.water)
-                        return;
+                    if (x2 >= 0 && chunkData[x2 << 12 | z2 << 8 | y] == Blocks.water) return;
                     x2 = x + 2;
-                    if (x2 <= 15 && chunkData[x2 << 12 | z2 << 8 | y] == Blocks.water)
-                        return;
+                    if (x2 <= 15 && chunkData[x2 << 12 | z2 << 8 | y] == Blocks.water) return;
                 }
-                if (chunkData[x << 12 | z << 8 | y + 2] == Blocks.water)
-                    return;
+                if (chunkData[x << 12 | z << 8 | y + 2] == Blocks.water) return;
             }
-            if (y >= 60 && y <= 64 && (biomeList[(biome > 255) ? 20 : biome] & 0x20) != 0)
-                return;
+            if (y >= 60 && y <= 64 && (biomeList[(biome > 255) ? 20 : biome] & 0x20) != 0) return;
             BiomeGenBase bm = null;
             try {
                 bm = worldObj.getBiomeGenForCoordsBody(x + chunkX_16, z + chunkZ_16);
@@ -2348,8 +2219,7 @@ public class MysteriumPatchesFixesCave {
                 int x2z2 = x * x + z2;
                 if (x2z2 <= 329) {
                     int cx = chunkX + x;
-                    if (flag)
-                        distance = cx * cx + cz * cz;
+                    if (flag) distance = cx * cx + cz * cz;
                     byte data = 0;
                     if (validColossalCaveLocation(cx, cz, distance)) {
                         data = -1;
@@ -2360,8 +2230,7 @@ public class MysteriumPatchesFixesCave {
                             data = 2;
                         } else if (x2z2 <= 262) {
                             int d = validSpecialCaveLocation(cx, cz, distance);
-                            if (d > 0)
-                                data = (byte) d;
+                            if (d > 0) data = (byte) d;
                         }
                     }
                     caveDataArray[zIndex + x] = data;
@@ -2381,39 +2250,29 @@ public class MysteriumPatchesFixesCave {
                     byte data = caveDataArray[zIndex + x];
                     if (data != 0) {
                         if (data == -1) {
-                            if (x2z2 == 0)
-                                return -1;
+                            if (x2z2 == 0) return -1;
                             return 0;
                         }
                         if (data == 1 && x2z2 <= 17) {
-                            if (x2z2 == 0)
-                                return 2;
-                            if (x2z2 <= 5)
-                                return 0;
+                            if (x2z2 == 0) return 2;
+                            if (x2z2 <= 5) return 0;
                             flag = 5;
                         }
                         if (data == 4 && x2z2 <= 17) {
-                            if (x2z2 == 0)
-                                return 6;
-                            if (x2z2 <= 5)
-                                return 0;
+                            if (x2z2 == 0) return 6;
+                            if (x2z2 <= 5) return 0;
                             flag = 5;
                         }
                         if (data == 5 && x2z2 <= 17) {
-                            if (x2z2 == 0)
-                                return 7;
-                            if (x2z2 <= 5)
-                                return 0;
+                            if (x2z2 == 0) return 7;
+                            if (x2z2 <= 5) return 0;
                             flag = 5;
                         }
                         if (data == 2 && x2z2 <= 24) {
-                            if (x2z2 == 0)
-                                return 3;
-                            if (flag == 1)
-                                flag = 4;
+                            if (x2z2 == 0) return 3;
+                            if (flag == 1) flag = 4;
                         }
-                        if (data == 3)
-                            flag = 5;
+                        if (data == 3) flag = 5;
                     }
                 }
             }
@@ -2424,8 +2283,7 @@ public class MysteriumPatchesFixesCave {
     public static boolean validColossalCaveLocation(int chunkX, int chunkZ, int distance) {
         chunkX += caveOffsetX;
         chunkZ += caveOffsetZ;
-        if ((chunkX & 0x40) == (chunkZ & 0x40))
-            return false;
+        if ((chunkX & 0x40) == (chunkZ & 0x40)) return false;
         caveRNG.setSeed(((chunkX / 64) * 341873128712L + (chunkZ / 64) * 132897987541L) * colossalCaveSeedMultiplier);
         return ((chunkX & 0x3F) == caveRNG.nextInt(32) && (chunkZ & 0x3F) == caveRNG.nextInt(32));
     }
@@ -2435,8 +2293,7 @@ public class MysteriumPatchesFixesCave {
         int offsetZ = chunkZ + caveOffsetZ + 1;
         if ((offsetX & 0x7) <= 2 && (offsetZ & 0x7) <= 2) {
             int d = validSpecialCaveLocation2(offsetX, offsetZ);
-            if (d != 0)
-                return d;
+            if (d != 0) return d;
             offsetX -= 16;
             offsetZ -= 16;
             caveRNG.setSeed(((offsetX / 32) * 341873128712L + (offsetZ / 32) * 132897987541L) * seedMultiplier);
@@ -2448,16 +2305,12 @@ public class MysteriumPatchesFixesCave {
                         int x2z2 = x * x + z * z;
                         if (x2z2 <= 50) {
                             int cx = chunkX + x;
-                            if (flag)
-                                distance = cx * cx + cz * cz;
-                            if (validColossalCaveLocation(cx, cz, distance))
-                                return 0;
+                            if (flag) distance = cx * cx + cz * cz;
+                            if (validColossalCaveLocation(cx, cz, distance)) return 0;
                             if (x2z2 <= 37) {
-                                if (validStrongholdLocation(cx, cz, distance))
-                                    return 0;
+                                if (validStrongholdLocation(cx, cz, distance)) return 0;
                                 if (x2z2 <= 24) {
-                                    if (validRegionalCaveLocation(cx, cz, distance))
-                                        return 0;
+                                    if (validRegionalCaveLocation(cx, cz, distance)) return 0;
                                     if (x2z2 > 0 && x2z2 <= 17 && validSpecialCaveLocation2(cx + caveOffsetX + 1, cz + caveOffsetZ + 1) != 0)
                                         return 0;
                                 }
@@ -2576,8 +2429,7 @@ public class MysteriumPatchesFixesCave {
     private static boolean validStrongholdLocation(int chunkX, int chunkZ, int distance) {
         chunkX += caveOffsetX;
         chunkZ += caveOffsetZ;
-        if ((chunkX & 0x40) != (chunkZ & 0x40))
-            return false;
+        if ((chunkX & 0x40) != (chunkZ & 0x40)) return false;
         rand.setSeed(((chunkX / 64) * 341873128712L + (chunkZ / 64) * 132897987541L) * seedMultiplier);
         return ((chunkX & 0x3F) == rand.nextInt(32) && (chunkZ & 0x3F) == rand.nextInt(32) && distance >= 1600);
     }

@@ -1,4 +1,4 @@
-package net.tclproject.mysteriumlib.asm.fixes;
+package net.tclproject.immersivecavegen.fixes;
 
 import java.util.Random;
 import net.minecraft.block.Block;
@@ -12,11 +12,11 @@ import net.tclproject.mysteriumlib.asm.annotations.Fix;
 
 public class MysteriumPatchesFixesSand {
   private static Block sandBlock;
-  
+
   private static Block solidBlock;
-  
+
   private static int radius;
-  
+
   @Fix(targetMethod = "<init>")
   public static void WorldGenSand(WorldGenSand s, Block p_i45462_1_, int p_i45462_2_) {
     sandBlock = p_i45462_1_;
@@ -26,18 +26,18 @@ public class MysteriumPatchesFixesSand {
       solidBlock = Blocks.stone;
     } else {
       solidBlock = sandBlock;
-    } 
+    }
     radius = p_i45462_2_;
   }
-  
+
   @Fix(returnSetting = EnumReturnSetting.ALWAYS)
   public static boolean generate(WorldGenSand s, World p_76484_1_, Random p_76484_2_, int p_76484_3_, int p_76484_4_, int p_76484_5_) {
     for (String str : WGConfig.dimblacklist) {
       if (p_76484_1_ != null && String.valueOf(p_76484_1_.provider.dimensionId).equalsIgnoreCase(str))
-        return false; 
-    } 
+        return false;
+    }
     if (p_76484_1_.getBlock(p_76484_3_, p_76484_4_, p_76484_5_).getMaterial() != Material.water)
-      return false; 
+      return false;
     int var6 = p_76484_2_.nextInt(radius - 2) + 2;
     byte var7 = 2;
     for (int var8 = p_76484_3_ - var6; var8 <= p_76484_3_ + var6; var8++) {
@@ -53,13 +53,13 @@ public class MysteriumPatchesFixesSand {
                   p_76484_1_.setBlock(var8, var12, var9, sandBlock, 0, 2);
                 } else {
                   p_76484_1_.setBlock(var8, var12, var9, solidBlock, 0, 2);
-                } 
+                }
               } else {
                 p_76484_1_.setBlock(var8, var12, var9, sandBlock, 0, 2);
-              }  
-          }  
-      } 
-    } 
+              }
+          }
+      }
+    }
     return true;
   }
 }

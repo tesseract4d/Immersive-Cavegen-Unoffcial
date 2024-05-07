@@ -1,4 +1,4 @@
-package net.tclproject.mysteriumlib.asm.fixes;
+package net.tclproject.immersivecavegen.fixes;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Optional.Method;
@@ -29,9 +29,9 @@ import net.minecraftforge.event.terraingen.InitMapGenEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
 import net.tclproject.immersivecavegen.WGConfig;
-import net.tclproject.immersivecavegen.world.WorldGenLakesUnderground;
 import net.tclproject.mysteriumlib.asm.annotations.EnumReturnSetting;
 import net.tclproject.mysteriumlib.asm.annotations.Fix;
+import net.tclproject.mysteriumlib.asm.fixes.MysteriumPatchesFixesSnow;
 
 public class MysteriumPatchesFixesPop {
   public static Random lakeRand = new Random();
