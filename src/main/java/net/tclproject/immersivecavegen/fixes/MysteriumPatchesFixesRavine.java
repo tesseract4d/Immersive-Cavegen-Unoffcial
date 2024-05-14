@@ -15,7 +15,7 @@ public class MysteriumPatchesFixesRavine {
   @Fix(returnSetting = EnumReturnSetting.ON_TRUE)
   public static boolean func_151540_a(MapGenRavine instance, long p_151540_1_, int p_151540_3_, int p_151540_4_, Block[] p_151540_5_, double p_151540_6_, double p_151540_8_, double p_151540_10_, float p_151540_12_, float p_151540_13_, float p_151540_14_, int p_151540_15_, int p_151540_16_, double p_151540_17_) {
     for (String str : WGConfig.dimblacklist) {
-      if (((MapGenBase)instance).worldObj != null && String.valueOf(((MapGenBase)instance).worldObj.provider.dimensionId).equalsIgnoreCase(str))
+      if (instance.worldObj != null && String.valueOf(instance.worldObj.provider.dimensionId).equalsIgnoreCase(str))
         return false;
     }
     Random var19 = new Random(p_151540_1_);
@@ -24,7 +24,7 @@ public class MysteriumPatchesFixesRavine {
     float var24 = 0.0F;
     float var25 = 0.0F;
     if (p_151540_16_ <= 0) {
-      int var53 = ((MapGenBase)instance).range * 16 - 16;
+      int var53 = instance.range * 16 - 16;
       p_151540_16_ = var53 - var19.nextInt(var53 / 4);
     }
     boolean var61 = false;
@@ -113,11 +113,11 @@ public class MysteriumPatchesFixesRavine {
                         var48 = true;
                       if (var52 == Blocks.stone || var52 == Blocks.dirt || var52 == Blocks.grass)
                         if (var49 < 10) {
-                          p_151540_5_[var47] = (Block)Blocks.flowing_lava;
+                          p_151540_5_[var47] = Blocks.flowing_lava;
                         } else {
                           p_151540_5_[var47] = null;
                           if (var48 && p_151540_5_[var47 - 1] == Blocks.dirt)
-                            p_151540_5_[var47 - 1] = (((MapGenBase)instance).worldObj.getBiomeGenForCoordsBody(var41 + p_151540_3_ * 16, var44 + p_151540_4_ * 16)).topBlock;
+                            p_151540_5_[var47 - 1] = (instance.worldObj.getBiomeGenForCoordsBody(var41 + p_151540_3_ * 16, var44 + p_151540_4_ * 16)).topBlock;
                         }
                     }
                     var47--;
@@ -139,16 +139,16 @@ public class MysteriumPatchesFixesRavine {
       if (p_151538_1_ != null && String.valueOf(p_151538_1_.provider.dimensionId).equalsIgnoreCase(str))
         return false;
     }
-    if ((WGConfig.oneBigCave || ((MapGenBase)instance).rand.nextInt(50) == 100) && !WGConfig.turnOffVanillaCaverns) {
-      double d0 = (p_151538_2_ * 16 + ((MapGenBase)instance).rand.nextInt(16));
-      double d1 = (((MapGenBase)instance).rand.nextInt(((MapGenBase)instance).rand.nextInt(40) + 8) + 20);
-      double d2 = (p_151538_3_ * 16 + ((MapGenBase)instance).rand.nextInt(16));
+    if ((WGConfig.oneBigCave || instance.rand.nextInt(50) == 100) && !WGConfig.turnOffVanillaCaverns) {
+      double d0 = (p_151538_2_ * 16 + instance.rand.nextInt(16));
+      double d1 = (instance.rand.nextInt(instance.rand.nextInt(40) + 8) + 20);
+      double d2 = (p_151538_3_ * 16 + instance.rand.nextInt(16));
       byte b0 = 1;
       for (int i1 = 0; i1 < b0; i1++) {
-        float f = ((MapGenBase)instance).rand.nextFloat() * 3.1415927F * 2.0F;
-        float f1 = (((MapGenBase)instance).rand.nextFloat() - 0.5F) * 2.0F / 8.0F;
-        float f2 = (((MapGenBase)instance).rand.nextFloat() * 2.0F + ((MapGenBase)instance).rand.nextFloat()) * 2.0F;
-        instance.func_151540_a(((MapGenBase)instance).rand.nextLong(), p_151538_4_, p_151538_5_, p_151538_6_, d0, d1, d2, f2, f, f1, 0, 0, 3.0D);
+        float f = instance.rand.nextFloat() * 3.1415927F * 2.0F;
+        float f1 = (instance.rand.nextFloat() - 0.5F) * 2.0F / 8.0F;
+        float f2 = (instance.rand.nextFloat() * 2.0F + instance.rand.nextFloat()) * 2.0F;
+        instance.func_151540_a(instance.rand.nextLong(), p_151538_4_, p_151538_5_, p_151538_6_, d0, d1, d2, f2, f, f1, 0, 0, 3.0D);
       }
     }
     return true;
